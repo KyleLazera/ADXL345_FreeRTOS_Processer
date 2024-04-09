@@ -1,5 +1,1 @@
-../Core/Src/main.c:36:5:main	1
-../Core/Src/main.c:48:6:DummyTask	6
-../Core/Src/main.c:84:6:ReadADXLData	1
-../Core/Src/main.c:149:6:SPI1_IRQHandler	2
-../Core/Src/main.c:162:6:SPI_Specs_Init	1
+../Core/Src/main.c:9:5:main	1

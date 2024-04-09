@@ -1,0 +1,4 @@
+../Core/Src/ReadSPIData.c:9:13:SPI_Specs_Init	1
+../Core/Src/ReadSPIData.c:27:13:Slave_Pin_Init	1
+../Core/Src/ReadSPIData.c:36:6:ReadADXLData	1
+../Core/Src/ReadSPIData.c:101:6:SPI1_IRQHandler	2
