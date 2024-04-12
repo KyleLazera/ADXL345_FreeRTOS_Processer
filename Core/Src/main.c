@@ -14,7 +14,7 @@ int main()
 	data_queue = xQueueCreate(6, sizeof(AccelerometerData));  //Create queue to hold read data
 
 	xTaskCreate(ReadADXLData, "Read ADXL Task", 1000, NULL, 1, NULL);
-	xTaskCreate(DataProcessing, "Data Processing Task", 500, NULL, 1, NULL);
+	xTaskCreate(DataProcessing, "Data Processing Task", 2000, NULL, 1, NULL);
 
 	vTaskStartScheduler();
 
