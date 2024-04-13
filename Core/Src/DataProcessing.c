@@ -1,29 +1,8 @@
 #include "DataProcessing.h"
 
-static void ReadDataQueue(AccelerometerData *rec_data)
-{
-	int16_t _x, _y, _z;
-
-	xQueueReceive(data_queue, rec_data, 0);
-
-	switch(rec_data->axis)
-	{
-	case x_axis:
-		_x = rec_data->value;
-		break;
-	case y_axis:
-		_y = rec_data->value;
-		break;
-	case z_axis:
-		_z = rec_data->value;
-		break;
-	}
-
-	//printf("%d\n\r", _x);
-}
 
 /*
- * Initialize an FIR filter
+ * @Brief	Used to initialize the FIR filter by setting default values to 0.
  */
 static void InitFIRFilter(FIR_LowPass_Filter *filter)
 {
@@ -35,13 +14,20 @@ static void InitFIRFilter(FIR_LowPass_Filter *filter)
 
 	//Ensure the head of the FIFO is starting at index 0
 	filter->input_front = 0;
-
+	//Set the initial output to 0
 	filter->output = 0.0f;
 
 }
 
 /*
- * Initialize a cascade for the IIR filter implementation
+ * @Brief	This function is used to initialize a singular cascade in a higher order IIR filter. This function initializes the
+ * 			coefficients and the gain.
+ *
+ * @Note	Implementing higher order IIR filters linearly (similar to the way the FIR filter was implemented) can lead to exponential
+ * 			oscillations of the output. To implement the IIR filter, it is considered better practice to use a system of second order polynomials/
+ * 			product of bi-quads.
+ *
+ * @Note	To see design of filter see README file
  */
 static void InitCascade(IIR_LowPass_Filter *filter, float num_coeff[], float denom_coeff[], int order, float gain)
 {
@@ -59,39 +45,54 @@ static void InitCascade(IIR_LowPass_Filter *filter, float num_coeff[], float den
 
 	for(int i = 0; i < order + 1; i++)
 	{
-		//Initialize Coefficients for denominator
+		//Initialize Coefficients for numerator
 		filter->numerator_coefficients[i] = num_coeff[i];
 	}
 
+	//Initialize gain
 	filter->gain = gain;
 }
 
 /*
- * AlgorIthm to run the cascade
+ * @Brief	Algorithm to implement the IIR filter using product of Biquads
+ *
+ * @Note	This filter is based offf an elliptic lowpass filter - designed in MATLAB.
+ *
+ * @Note	To see how these equations were derived see README
  */
 static float CascadeIIR(IIR_LowPass_Filter *filter, int16_t input)
 {
-	//Intermediate value
-	float w = (float)input - (filter->buffer[0] - filter->denominator_coefficients[0]) - (filter->buffer[1] - filter->denominator_coefficients[1]);
-	//Output value
-	float output = (w * filter->numerator_coefficients[0]) + (filter->buffer[0] * filter->numerator_coefficients[1]) + (filter->buffer[1] * filter->numerator_coefficients[2]);
+	//Algorithm to calculate the intermediate value: w(n) = x(n) - a0*w(n-1) - a1*w(n-2)
+	float intermediate = (double)input - (filter->buffer[0] * filter->denominator_coefficients[0]) - (filter->buffer[1] * filter->denominator_coefficients[1]);
+	//Algorithm to calculate the final output value: y(n) = b1*w(n) + b2*w(n-1) + b3*w(n-2)
+	float output = (intermediate * filter->numerator_coefficients[0]) + (filter->buffer[0] * filter->numerator_coefficients[1]) + (filter->buffer[1] * filter->numerator_coefficients[2]);
+	//Multiply the output by the filter gain
 	output *= filter->gain;
-	//Shift buffer values (delay)
+
+	//Shift/delay buffer values
 	filter->buffer[1] = filter->buffer[0];
-	filter->buffer[0] = output;
+	filter->buffer[0] = intermediate;
 
 	return output;
 }
 
+/*
+ * @Brief	Algorithm used to implement the FIR low-pass filter.
+ *
+ * @Note	This filter (unlike the IIR) was implemented linearly based off the convolution sum formula.
+ *
+ * @Note	This filter is based off a low pass FIR filter with a Hanning window applied.
+ */
 static float FIRFilterComputation(FIR_LowPass_Filter *filter, int16_t input)
 {
 	uint8_t indexCounter;
 
-	//Store the current input in the input FIFO
+	//Store the current input in the FIFO
 	filter->moving_avg_buffer[filter->input_front] = (float)input;
 
 	//Increment the head of the FIFO and ensure it wraps around forming a circular buffer
 	//filter->input_front = (filter->input_front + 1) % (FILTER_ORDER + 1);
+	//TODO: Test the above implementation of FIFO buffer
 	filter->input_front++;
 	if(filter->input_front > FIR_FILTER_ORDER)
 	{
@@ -101,7 +102,7 @@ static float FIRFilterComputation(FIR_LowPass_Filter *filter, int16_t input)
 	indexCounter = filter->input_front;
 	filter->output = 0.0f;
 
-	//Convolution for running sum portion
+	//Convolution of input values and coefficients
 	for(int i = 0; i <= FIR_FILTER_ORDER; i++)
 	{
 		//Retrieve the input values from the FIFO Buffer
@@ -121,6 +122,7 @@ static float FIRFilterComputation(FIR_LowPass_Filter *filter, int16_t input)
 	return filter->output;
 }
 
+
 void DataProcessing(void *pvParameters)
 {
 	AccelerometerData rec_data;
@@ -138,17 +140,23 @@ void DataProcessing(void *pvParameters)
 
 	while(1)
 	{
-		ReadDataQueue(&rec_data);			//Read accelerometer data from FreeRTOS queue
+		xQueueReceive(adxl_data_queue, &rec_data, 0);			//Read accelerometer data from FreeRTOS queue
 
 		if(rec_data.axis == x_axis)
 		{
 			input = rec_data.value;
 			//FIRFilterComputation(&EllipticLP, input);
 			output = CascadeIIR(&cascade1, input);
-			output = CascadeIIR(&cascade1, output);
-			output = CascadeIIR(&cascade1, output);
+			output = CascadeIIR(&cascade2, output);
+			output = CascadeIIR(&cascade3, output);
 			printf("%d, %.2f\n\r", input, output);
 		}
+
+		/*
+		 * Filter the raw data by passing it through the IIR cascade
+		 */
+
+
 	}
 }
 

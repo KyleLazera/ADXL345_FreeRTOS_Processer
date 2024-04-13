@@ -76,17 +76,17 @@ void ReadADXLData(void *pvParameters)
 		x = ((adxl_data_rec[2] << 8) | adxl_data_rec[1]);
 		data.axis = x_axis;
 		data.value = x;
-		xQueueSend(data_queue, &data, 0);
+		xQueueSend(adxl_data_queue, &data, 0);
 
 		y = ((adxl_data_rec[4] << 8) | adxl_data_rec[3]);
 		data.axis = y_axis;
 		data.value = y;
-		xQueueSend(data_queue, &data, 0);
+		xQueueSend(adxl_data_queue, &data, 0);
 
 		z = ((adxl_data_rec[6] << 8) | adxl_data_rec[5]);
 		data.axis = z_axis;
 		data.value = z;
-		xQueueSend(data_queue, &data, 0);
+		xQueueSend(adxl_data_queue, &data, 0);
 
 		//xg = (x * 0.0078);
 		//yg = (y * 0.0078);

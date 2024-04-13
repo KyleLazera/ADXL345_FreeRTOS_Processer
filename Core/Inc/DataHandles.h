@@ -8,7 +8,7 @@ extern SPI_Handle_t SPI1_Example;
 extern GPIO_Config_t ADXL;
 extern UART_Config_t UART2;
 
-extern QueueHandle_t data_queue;
+extern QueueHandle_t adxl_data_queue, filtered_data_queue;
 
 int __io_putchar(int ch);
 
