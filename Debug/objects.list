@@ -1,6 +1,7 @@
 "./Core/Inc/DataHandles.o"
 "./Core/Src/DataProcessing.o"
 "./Core/Src/ReadSPIData.o"
+"./Core/Src/UART_Gatekeeper.o"
 "./Core/Src/freertos.o"
 "./Core/Src/main.o"
 "./Core/Src/syscalls.o"

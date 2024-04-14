@@ -1,7 +1,5 @@
 #include "ReadSPIData.h"
 
-//SPI_Handle_t SPI1_Example;
-//GPIO_Config_t ADXL;;
 
 /*
  * Function to set the SPI specs
@@ -64,33 +62,41 @@ void ReadADXLData(void *pvParameters)
 	SPI_MultiSlave_TransmitIT(&SPI1_Example, &ADXL, adxl_set_bw_rate_reg, 2);
 	SPI_MultiSlave_TransmitIT(&SPI1_Example, &ADXL, adxl_set_powerctl_reg, 2);
 
+	//xSemaphoreGive(xBinarySemaphore);
+	TickType_t _5ms = pdMS_TO_TICKS(10);
+
 	while(1)
 	{
+		//xSemaphoreTake(xBinarySemaphore, _5ms);
+		readingTask++;
+
 		//Reading data from the SPI
 		SPI_MultiSlave_RecieveIT(&SPI1_Example, &ADXL, adxl_data_rec, 7, *adxl_address);
 
 		/*
-		 * Convert the data into usable/readable values - this can be found in the ADXL345 documentation,
-		 * and send the stored values to a queue.
-		 */
+		* Convert the data into usable/readable values - this can be found in the ADXL345 documentation,
+		* and send the stored values to a queue.
+		*/
 		x = ((adxl_data_rec[2] << 8) | adxl_data_rec[1]);
 		data.axis = x_axis;
 		data.value = x;
-		xQueueSend(adxl_data_queue, &data, 0);
+		xQueueSend(adxl_data_queue, &data, _5ms);
 
 		y = ((adxl_data_rec[4] << 8) | adxl_data_rec[3]);
 		data.axis = y_axis;
 		data.value = y;
-		xQueueSend(adxl_data_queue, &data, 0);
+		xQueueSend(adxl_data_queue, &data, _5ms);
 
 		z = ((adxl_data_rec[6] << 8) | adxl_data_rec[5]);
 		data.axis = z_axis;
 		data.value = z;
-		xQueueSend(adxl_data_queue, &data, 0);
+		xQueueSend(adxl_data_queue, &data, _5ms);
 
-		//xg = (x * 0.0078);
-		//yg = (y * 0.0078);
-		//zg = (z * 0.0078);
+		//xSemaphoreGive(xCountingSemaphore);
+
+		//xSemaphoreGive(xBinarySemaphore);
+		//vTaskDelay(_10ms);
+
 	}
 
 }

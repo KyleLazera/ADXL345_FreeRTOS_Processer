@@ -60,21 +60,22 @@ static void InitCascade(IIR_LowPass_Filter *filter, float num_coeff[], float den
  *
  * @Note	To see how these equations were derived see README
  */
-static float CascadeIIR(IIR_LowPass_Filter *filter, int16_t input)
+static void CascadeIIR(IIR_LowPass_Filter *filter, AccelerometerData *input)
 {
 	//Algorithm to calculate the intermediate value: w(n) = x(n) - a0*w(n-1) - a1*w(n-2)
-	float intermediate = (double)input - (filter->buffer[0] * filter->denominator_coefficients[0]) - (filter->buffer[1] * filter->denominator_coefficients[1]);
+	float intermediate = (input->value) - (filter->buffer[0] * filter->denominator_coefficients[0]) - (filter->buffer[1] * filter->denominator_coefficients[1]);
 	//Algorithm to calculate the final output value: y(n) = b1*w(n) + b2*w(n-1) + b3*w(n-2)
 	float output = (intermediate * filter->numerator_coefficients[0]) + (filter->buffer[0] * filter->numerator_coefficients[1]) + (filter->buffer[1] * filter->numerator_coefficients[2]);
 	//Multiply the output by the filter gain
 	output *= filter->gain;
+	(input->value) = output;
 
 	//Shift/delay buffer values
 	filter->buffer[1] = filter->buffer[0];
 	filter->buffer[0] = intermediate;
 
-	return output;
 }
+
 
 /*
  * @Brief	Algorithm used to implement the FIR low-pass filter.
@@ -83,21 +84,15 @@ static float CascadeIIR(IIR_LowPass_Filter *filter, int16_t input)
  *
  * @Note	This filter is based off a low pass FIR filter with a Hanning window applied.
  */
-static float FIRFilterComputation(FIR_LowPass_Filter *filter, int16_t input)
+static void FIRFilterComputation(FIR_LowPass_Filter *filter, AccelerometerData *input)
 {
 	uint8_t indexCounter;
 
 	//Store the current input in the FIFO
-	filter->moving_avg_buffer[filter->input_front] = (float)input;
+	filter->moving_avg_buffer[filter->input_front] = input->value;
 
 	//Increment the head of the FIFO and ensure it wraps around forming a circular buffer
-	//filter->input_front = (filter->input_front + 1) % (FILTER_ORDER + 1);
-	//TODO: Test the above implementation of FIFO buffer
-	filter->input_front++;
-	if(filter->input_front > FIR_FILTER_ORDER)
-	{
-		filter->input_front = 0;
-	}
+	filter->input_front = (filter->input_front + 1) % (FIR_FILTER_ORDER + 1);
 
 	indexCounter = filter->input_front;
 	filter->output = 0.0f;
@@ -119,45 +114,56 @@ static float FIRFilterComputation(FIR_LowPass_Filter *filter, int16_t input)
 		filter->output += (filter->moving_avg_buffer[indexCounter]) * (FIR_FILTER_COEFFICIENTS[i]);
 	}
 
-	return filter->output;
+	input->value = filter->output;
 }
-
 
 void DataProcessing(void *pvParameters)
 {
-	AccelerometerData rec_data;
-	FIR_LowPass_Filter EllipticLP;
-	int16_t input = 0;
-	float output;
+	AccelerometerData rec_data, filtered_data;
+	FIR_LowPass_Filter x_lowpass, y_lowpass, z_lowpass;
+	float input = 0, output = 0;
 
-	IIR_LowPass_Filter cascade1, cascade2, cascade3;
-
+	/*IIR_LowPass_Filter cascade1, cascade2, cascade3;
 	InitCascade(&cascade1, NUMERATOR_CASCADE1_COEFFICIENTS, DENOMINATOR_CASCADE1_COEFFICIENTS, IIR_FILTER_ORDER, GAIN_CASCADE1);
 	InitCascade(&cascade2, NUMERATOR_CASCADE2_COEFFICIENTS, DENOMINATOR_CASCADE2_COEFFICIENTS, IIR_FILTER_ORDER, GAIN_CASCADE2);
-	InitCascade(&cascade3, NUMERATOR_CASCADE3_COEFFICIENTS, DENOMINATOR_CASCADE3_COEFFICIENTS, IIR_FILTER_ORDER, GAIN_CASCADE3);
+	InitCascade(&cascade3, NUMERATOR_CASCADE3_COEFFICIENTS, DENOMINATOR_CASCADE3_COEFFICIENTS, IIR_FILTER_ORDER, GAIN_CASCADE3);*/
 
-	//InitFIRFilter(&EllipticLP);
+	InitFIRFilter(&x_lowpass);
+	InitFIRFilter(&y_lowpass);
+	InitFIRFilter(&z_lowpass);
+	TickType_t _5ms = pdMS_TO_TICKS(10);
 
 	while(1)
 	{
-		xQueueReceive(adxl_data_queue, &rec_data, 0);			//Read accelerometer data from FreeRTOS queue
+		filterTask++;
 
-		if(rec_data.axis == x_axis)
+		xQueueReceive(adxl_data_queue, &rec_data, _5ms);			//Read accelerometer data from FreeRTOS queue
+
+		switch(rec_data.axis)
 		{
-			input = rec_data.value;
-			//FIRFilterComputation(&EllipticLP, input);
-			output = CascadeIIR(&cascade1, input);
-			output = CascadeIIR(&cascade2, output);
-			output = CascadeIIR(&cascade3, output);
-			printf("%d, %.2f\n\r", input, output);
+			case x_axis:
+				input = rec_data.value;
+				FIRFilterComputation(&x_lowpass, &rec_data);
+				//printf("%.2f, %.2f\n\r", input, rec_data.value);
+				break;
+
+			case y_axis:
+				input = rec_data.value;
+				FIRFilterComputation(&y_lowpass, &rec_data);
+				printf("%.2f, %.2f\n\r", input, rec_data.value);
+				break;
+
+			case z_axis:
+				input = rec_data.value;
+				FIRFilterComputation(&z_lowpass, &rec_data);
+				//printf("%.2f, %.2f\n\r", input, rec_data.value);
+				break;
 		}
 
-		/*
-		 * Filter the raw data by passing it through the IIR cascade
-		 */
-
+		//xQueueSend(filtered_data_queue, &rec_data, 0);
 
 	}
 }
+
 
 
