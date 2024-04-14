@@ -14,7 +14,7 @@ extern QueueHandle_t adxl_data_queue, filtered_data_queue;
 
 extern SemaphoreHandle_t xCountingSemaphore;
 
-extern int readingTask, filterTask;
+extern int readingTask, filterTask, gatekeeper;
 
 int __io_putchar(int ch);
 

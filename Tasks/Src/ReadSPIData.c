@@ -22,6 +22,10 @@ static void SPI_Specs_Init()
 	SPI1_Example.data_frame = Data_8_Bits;
 }
 
+/*
+ * @Brief	This function enables GPIO output mode, so the GPIO pin can act as a slave pin
+ * 			to the accelerometer data.
+ */
 static void Slave_Pin_Init()
 {
 	//Create and initialze a slave pin with the desired port and pin
@@ -62,7 +66,6 @@ void ReadADXLData(void *pvParameters)
 	SPI_MultiSlave_TransmitIT(&SPI1_Example, &ADXL, adxl_set_bw_rate_reg, 2);
 	SPI_MultiSlave_TransmitIT(&SPI1_Example, &ADXL, adxl_set_powerctl_reg, 2);
 
-	//xSemaphoreGive(xBinarySemaphore);
 	TickType_t _5ms = pdMS_TO_TICKS(10);
 
 	while(1)

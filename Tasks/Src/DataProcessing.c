@@ -2,22 +2,10 @@
 
 
 /*
- * @Brief	Used to initialize the FIR filter by setting default values to 0.
+ * **********************************************
+ * IIR Low Pass Filter Functions
+ * **********************************************
  */
-static void InitFIRFilter(FIR_LowPass_Filter *filter)
-{
-	//Clear the FIFO buffers
-	for(int index = 0; index <= FIR_FILTER_ORDER; index++)
-	{
-		filter->moving_avg_buffer[index] = 0.0f;
-	}
-
-	//Ensure the head of the FIFO is starting at index 0
-	filter->input_front = 0;
-	//Set the initial output to 0
-	filter->output = 0.0f;
-
-}
 
 /*
  * @Brief	This function is used to initialize a singular cascade in a higher order IIR filter. This function initializes the
@@ -73,6 +61,30 @@ static void CascadeIIR(IIR_LowPass_Filter *filter, AccelerometerData *input)
 	//Shift/delay buffer values
 	filter->buffer[1] = filter->buffer[0];
 	filter->buffer[0] = intermediate;
+
+}
+
+/*
+ * **********************************************
+ * FIR Low Pass Filter Functions
+ * **********************************************
+ */
+
+/*
+ * @Brief	Used to initialize the FIR filter by setting default values to 0.
+ */
+static void InitFIRFilter(FIR_LowPass_Filter *filter)
+{
+	//Clear the FIFO buffers
+	for(int index = 0; index <= FIR_FILTER_ORDER; index++)
+	{
+		filter->moving_avg_buffer[index] = 0.0f;
+	}
+
+	//Ensure the head of the FIFO is starting at index 0
+	filter->input_front = 0;
+	//Set the initial output to 0
+	filter->output = 0.0f;
 
 }
 
@@ -145,23 +157,23 @@ void DataProcessing(void *pvParameters)
 				input = rec_data.value;
 				FIRFilterComputation(&x_lowpass, &rec_data);
 				//printf("%.2f, %.2f\n\r", input, rec_data.value);
+				xQueueSend(filtered_data_queue, &rec_data, _5ms);
 				break;
 
 			case y_axis:
 				input = rec_data.value;
 				FIRFilterComputation(&y_lowpass, &rec_data);
-				printf("%.2f, %.2f\n\r", input, rec_data.value);
+				//printf("%.2f, %.2f\n\r", input, rec_data.value);
+				xQueueSend(filtered_data_queue, &rec_data, _5ms);
 				break;
 
 			case z_axis:
 				input = rec_data.value;
 				FIRFilterComputation(&z_lowpass, &rec_data);
 				//printf("%.2f, %.2f\n\r", input, rec_data.value);
+				xQueueSend(filtered_data_queue, &rec_data, _5ms);
 				break;
 		}
-
-		//xQueueSend(filtered_data_queue, &rec_data, 0);
-
 	}
 }
 

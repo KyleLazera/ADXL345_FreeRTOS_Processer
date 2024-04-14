@@ -1,8 +1,9 @@
-Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/ReadSPIData.h \
- ../Core/Inc/DataHandles.h \
+Core/Src/main.o: ../Core/Src/main.c \
+ C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/ReadSPIData.h \
+ C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Inc/DataHandles.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
- ../Core/Inc/FreeRTOSConfig.h \
+ C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Inc/FreeRTOSConfig.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h \
@@ -28,12 +29,13 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/ReadSPIData.h \
  C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Drivers/stm32f4xx_periphDrivers/Inc/stm32f401_uart.h \
  C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Drivers/stm32f4xx_periphDrivers/Inc/stm32f401_gpio.h \
  C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Drivers/stm32f4xx_periphDrivers/Inc/stm32f401_rcc.h \
- ../Core/Inc/DataProcessing.h ../Core/Inc/UART_Gatekeeper.h
-../Core/Inc/ReadSPIData.h:
-../Core/Inc/DataHandles.h:
+ C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/DataProcessing.h \
+ C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/UART_Gatekeeper.h
+C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/ReadSPIData.h:
+C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Inc/DataHandles.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
-../Core/Inc/FreeRTOSConfig.h:
+C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Inc/FreeRTOSConfig.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h:
@@ -59,5 +61,5 @@ C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Drivers/stm32f4xx_periphDr
 C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Drivers/stm32f4xx_periphDrivers/Inc/stm32f401_uart.h:
 C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Drivers/stm32f4xx_periphDrivers/Inc/stm32f401_gpio.h:
 C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Drivers/stm32f4xx_periphDrivers/Inc/stm32f401_rcc.h:
-../Core/Inc/DataProcessing.h:
-../Core/Inc/UART_Gatekeeper.h:
+C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/DataProcessing.h:
+C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/UART_Gatekeeper.h:

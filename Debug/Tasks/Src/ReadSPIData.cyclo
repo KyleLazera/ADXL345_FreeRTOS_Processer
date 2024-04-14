@@ -1,0 +1,4 @@
+../Tasks/Src/ReadSPIData.c:7:13:SPI_Specs_Init	1
+../Tasks/Src/ReadSPIData.c:29:13:Slave_Pin_Init	1
+../Tasks/Src/ReadSPIData.c:38:6:ReadADXLData	1
+../Tasks/Src/ReadSPIData.c:110:6:SPI1_IRQHandler	2

@@ -8,7 +8,7 @@ QueueHandle_t adxl_data_queue, filtered_data_queue;
 
 SemaphoreHandle_t xCountingSemaphore;;
 
-int readingTask, filterTask;
+int readingTask, filterTask, gatekeeper;
 
 int __io_putchar(int ch)
 {

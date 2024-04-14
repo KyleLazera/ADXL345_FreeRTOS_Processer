@@ -3,9 +3,6 @@
 #include "UART_Gatekeeper.h"
 #include <stdio.h>
 
-int counter = 0;
-//int __io_putchar(int ch);
-
 
 int main()
 {
@@ -17,18 +14,12 @@ int main()
 
 	xCountingSemaphore = xSemaphoreCreateCounting(300, 0);		//params are max count and initial count
 
-	xTaskCreate(ReadADXLData, "Read ADXL Task", 1000, NULL, 2, NULL);
-	xTaskCreate(DataProcessing, "Data Processing Task", 2000, NULL, 1, NULL);
-	//xTaskCreate(PrintFilteredData, "Print Filtered Data", 500, NULL, 1, NULL);
+	xTaskCreate(ReadADXLData, "Read ADXL Task", 1000, NULL, 3, NULL);
+	xTaskCreate(DataProcessing, "Data Processing Task", 2000, NULL, 2, NULL);
+	xTaskCreate(PrintFilteredData, "Print Filtered Data", 500, NULL, 1, NULL);
 
 	vTaskStartScheduler();
 
 }
 
-
-/*int __io_putchar(int ch)
-{
-	WriteByte(&UART2, (uint16_t)ch);
-	return ch;
-}*/
 
