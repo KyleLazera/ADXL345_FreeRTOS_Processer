@@ -12,9 +12,7 @@ extern UART_Config_t UART2;
 
 extern QueueHandle_t adxl_data_queue, filtered_data_queue;
 
-extern SemaphoreHandle_t xCountingSemaphore;
-
-extern int readingTask, filterTask, gatekeeper;
+extern int readingTask, filterTask, gatekeeper, pwm_output;
 
 int __io_putchar(int ch);
 

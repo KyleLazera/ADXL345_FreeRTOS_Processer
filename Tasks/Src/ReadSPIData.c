@@ -1,10 +1,9 @@
 #include "ReadSPIData.h"
 
-
 /*
  * Function to set the SPI specs
  */
-static void SPI_Specs_Init()
+void SPI_Specs_Init()
 {
 	//Set desired pins
 	SPI1_Example.SPI_Config.cs_gpio = GPIOA;
@@ -53,9 +52,8 @@ void ReadADXLData(void *pvParameters)
 	uint8_t adxl_set_bw_rate_reg[2] = {0x2C, 0x0A};
 
 	//Configure SPI and slave pin for ADXL
-	SPI_Specs_Init();
 	Slave_Pin_Init();
-
+	SPI_Specs_Init();
 	SPI_Init(&SPI1_Example);
 
 	/*
@@ -66,11 +64,10 @@ void ReadADXLData(void *pvParameters)
 	SPI_MultiSlave_TransmitIT(&SPI1_Example, &ADXL, adxl_set_bw_rate_reg, 2);
 	SPI_MultiSlave_TransmitIT(&SPI1_Example, &ADXL, adxl_set_powerctl_reg, 2);
 
-	TickType_t _5ms = pdMS_TO_TICKS(10);
+	TickType_t _10ms = pdMS_TO_TICKS(5);
 
 	while(1)
 	{
-		//xSemaphoreTake(xBinarySemaphore, _5ms);
 		readingTask++;
 
 		//Reading data from the SPI
@@ -83,22 +80,17 @@ void ReadADXLData(void *pvParameters)
 		x = ((adxl_data_rec[2] << 8) | adxl_data_rec[1]);
 		data.axis = x_axis;
 		data.value = x;
-		xQueueSend(adxl_data_queue, &data, _5ms);
+		xQueueSend(adxl_data_queue, &data, _10ms);
 
 		y = ((adxl_data_rec[4] << 8) | adxl_data_rec[3]);
 		data.axis = y_axis;
 		data.value = y;
-		xQueueSend(adxl_data_queue, &data, _5ms);
+		xQueueSend(adxl_data_queue, &data, _10ms);
 
 		z = ((adxl_data_rec[6] << 8) | adxl_data_rec[5]);
 		data.axis = z_axis;
 		data.value = z;
-		xQueueSend(adxl_data_queue, &data, _5ms);
-
-		//xSemaphoreGive(xCountingSemaphore);
-
-		//xSemaphoreGive(xBinarySemaphore);
-		//vTaskDelay(_10ms);
+		xQueueSend(adxl_data_queue, &data, _10ms);
 
 	}
 

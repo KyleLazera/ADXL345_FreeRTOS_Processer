@@ -1,4 +1,4 @@
-../Tasks/Src/ReadSPIData.c:7:13:SPI_Specs_Init	4	static
-../Tasks/Src/ReadSPIData.c:29:13:Slave_Pin_Init	24	static
-../Tasks/Src/ReadSPIData.c:38:6:ReadADXLData	72	static
-../Tasks/Src/ReadSPIData.c:110:6:SPI1_IRQHandler	16	static,ignoring_inline_asm
+../Tasks/Src/ReadSPIData.c:6:6:SPI_Specs_Init	4	static
+../Tasks/Src/ReadSPIData.c:28:13:Slave_Pin_Init	24	static
+../Tasks/Src/ReadSPIData.c:37:6:ReadADXLData	72	static
+../Tasks/Src/ReadSPIData.c:102:6:SPI1_IRQHandler	16	static,ignoring_inline_asm

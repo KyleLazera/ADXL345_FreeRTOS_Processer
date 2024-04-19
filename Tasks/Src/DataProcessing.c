@@ -2,9 +2,9 @@
 
 
 /*
- * **********************************************
+ * ***************************************************************************
  * IIR Low Pass Filter Functions
- * **********************************************
+ * ***************************************************************************
  */
 
 /*
@@ -65,9 +65,9 @@ static void CascadeIIR(IIR_LowPass_Filter *filter, AccelerometerData *input)
 }
 
 /*
- * **********************************************
+ * ***************************************************************************
  * FIR Low Pass Filter Functions
- * **********************************************
+ * ***************************************************************************
  */
 
 /*
@@ -131,9 +131,9 @@ static void FIRFilterComputation(FIR_LowPass_Filter *filter, AccelerometerData *
 
 void DataProcessing(void *pvParameters)
 {
-	AccelerometerData rec_data, filtered_data;
+	AccelerometerData rec_data;
 	FIR_LowPass_Filter x_lowpass, y_lowpass, z_lowpass;
-	float input = 0, output = 0;
+	float input = 0.0, output = 0;
 
 	/*IIR_LowPass_Filter cascade1, cascade2, cascade3;
 	InitCascade(&cascade1, NUMERATOR_CASCADE1_COEFFICIENTS, DENOMINATOR_CASCADE1_COEFFICIENTS, IIR_FILTER_ORDER, GAIN_CASCADE1);
@@ -143,35 +143,31 @@ void DataProcessing(void *pvParameters)
 	InitFIRFilter(&x_lowpass);
 	InitFIRFilter(&y_lowpass);
 	InitFIRFilter(&z_lowpass);
-	TickType_t _5ms = pdMS_TO_TICKS(10);
+	TickType_t _10ms = pdMS_TO_TICKS(10);
 
 	while(1)
 	{
 		filterTask++;
 
-		xQueueReceive(adxl_data_queue, &rec_data, _5ms);			//Read accelerometer data from FreeRTOS queue
+		xQueueReceive(adxl_data_queue, &rec_data, 0);			//Read accelerometer data from FreeRTOS queue
 
 		switch(rec_data.axis)
 		{
 			case x_axis:
 				input = rec_data.value;
 				FIRFilterComputation(&x_lowpass, &rec_data);
-				//printf("%.2f, %.2f\n\r", input, rec_data.value);
-				xQueueSend(filtered_data_queue, &rec_data, _5ms);
+				xQueueSend(filtered_data_queue, &rec_data, _10ms);
+				//printf("%.2f\n\r", rec_data.value);
 				break;
 
 			case y_axis:
-				input = rec_data.value;
 				FIRFilterComputation(&y_lowpass, &rec_data);
-				//printf("%.2f, %.2f\n\r", input, rec_data.value);
-				xQueueSend(filtered_data_queue, &rec_data, _5ms);
+				xQueueSend(filtered_data_queue, &rec_data, _10ms);
 				break;
 
 			case z_axis:
-				input = rec_data.value;
 				FIRFilterComputation(&z_lowpass, &rec_data);
-				//printf("%.2f, %.2f\n\r", input, rec_data.value);
-				xQueueSend(filtered_data_queue, &rec_data, _5ms);
+				xQueueSend(filtered_data_queue, &rec_data, _10ms);
 				break;
 		}
 	}
