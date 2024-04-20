@@ -20,6 +20,7 @@
 "./Middlewares/Third_Party/FreeRTOS/Source/timers.o"
 "./Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.o"
 "./Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o"
+"./Tasks/Src/CLI_Interface.o"
 "./Tasks/Src/DataProcessing.o"
 "./Tasks/Src/ReadSPIData.o"
 "./Tasks/Src/UART_Gatekeeper.o"

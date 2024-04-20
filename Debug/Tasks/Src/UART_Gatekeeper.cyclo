@@ -1,4 +1,2 @@
-../Tasks/Src/UART_Gatekeeper.c:3:13:Tim3_PWM_Init	5
-../Tasks/Src/UART_Gatekeeper.c:26:13:Tim3Init	1
-../Tasks/Src/UART_Gatekeeper.c:58:13:SetDutyCycle	6
-../Tasks/Src/UART_Gatekeeper.c:82:6:OutputData	5
+../Tasks/Src/UART_Gatekeeper.c:4:13:SetDutyCycle	6
+../Tasks/Src/UART_Gatekeeper.c:28:6:OutputData	5

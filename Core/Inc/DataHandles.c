@@ -6,14 +6,16 @@ UART_Config_t UART2;
 
 QueueHandle_t adxl_data_queue, filtered_data_queue;
 
-SemaphoreHandle_t xCountingSemaphore;;
+SemaphoreHandle_t read_uart, read_spi;
 
-int readingTask, filterTask, gatekeeper, pwm_output;
+int readingTask, filterTask, gatekeeper, cli_interface, spi_int;
+char buffer[10];
 
 int __io_putchar(int ch)
 {
 	WriteByte(&UART2, (uint16_t)ch);
 	return ch;
 }
+
 
 

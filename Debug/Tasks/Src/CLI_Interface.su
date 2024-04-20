@@ -1,0 +1,2 @@
+../Tasks/Src/CLI_Interface.c:3:6:CommandLineRead	24	static
+../Tasks/Src/CLI_Interface.c:21:6:USART2_IRQHandler	16	static,ignoring_inline_asm

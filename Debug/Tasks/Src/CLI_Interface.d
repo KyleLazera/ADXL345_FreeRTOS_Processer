@@ -1,5 +1,5 @@
-Core/Src/main.o: ../Core/Src/main.c \
- C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/ReadSPIData.h \
+Tasks/Src/CLI_Interface.o: ../Tasks/Src/CLI_Interface.c \
+ C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/CLI_Interface.h \
  C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Inc/DataHandles.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
@@ -28,11 +28,8 @@ Core/Src/main.o: ../Core/Src/main.c \
  C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Drivers/stm32f4xx_periphDrivers/Inc/stm32f401_i2c.h \
  C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Drivers/stm32f4xx_periphDrivers/Inc/stm32f401_uart.h \
  C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Drivers/stm32f4xx_periphDrivers/Inc/stm32f401_gpio.h \
- C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Drivers/stm32f4xx_periphDrivers/Inc/stm32f401_rcc.h \
- C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/DataProcessing.h \
- C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/UART_Gatekeeper.h \
- C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/CLI_Interface.h
-C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/ReadSPIData.h:
+ C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Drivers/stm32f4xx_periphDrivers/Inc/stm32f401_rcc.h
+C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/CLI_Interface.h:
 C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Inc/DataHandles.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
@@ -62,6 +59,3 @@ C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Drivers/stm32f4xx_periphDr
 C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Drivers/stm32f4xx_periphDrivers/Inc/stm32f401_uart.h:
 C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Drivers/stm32f4xx_periphDrivers/Inc/stm32f401_gpio.h:
 C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Drivers/stm32f4xx_periphDrivers/Inc/stm32f401_rcc.h:
-C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/DataProcessing.h:
-C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/UART_Gatekeeper.h:
-C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/CLI_Interface.h:

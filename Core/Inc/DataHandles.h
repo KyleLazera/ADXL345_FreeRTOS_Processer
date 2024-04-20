@@ -3,19 +3,34 @@
 
 #include "cmsis_os.h"
 #include "stm32f401_spi.h"
+#include "stdbool.h"
 
-#define FIFO_SIZE		200
-
+/*
+ ***********************************************************
+ * Declare Peripheral Handles
+ ***********************************************************
+ */
 extern SPI_Handle_t SPI1_Example;
 extern GPIO_Config_t ADXL;
 extern UART_Config_t UART2;
 
+/*
+ ***********************************************************
+ * Declare FreeRTOS Variables
+ ***********************************************************
+ */
 extern QueueHandle_t adxl_data_queue, filtered_data_queue;
 
-extern int readingTask, filterTask, gatekeeper, pwm_output;
+extern SemaphoreHandle_t read_uart, read_spi;
 
-int __io_putchar(int ch);
+extern int readingTask, filterTask, gatekeeper, cli_interface, spi_int;
+extern char buffer[10];
 
+/*
+ ***********************************************************
+ * Accelerometer Data Structure
+ ***********************************************************
+ */
 typedef enum
 {
 	x_axis,
@@ -29,6 +44,12 @@ typedef struct
 	float value;
 }AccelerometerData;
 
+/*
+ **************************************************************
+ * Functions
+ **************************************************************
+ */
 
+int __io_putchar(int ch);
 
 #endif /* INC_DATAHANDLES_H_ */

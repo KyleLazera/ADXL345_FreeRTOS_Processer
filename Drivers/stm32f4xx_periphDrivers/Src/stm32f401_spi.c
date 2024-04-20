@@ -234,6 +234,8 @@ static void Enable_NVIC(SPI_Handle_t *SPI_Handle)
 	else{
 		NVIC_EnableIRQ(SPI4_IRQn);
 	}
+
+	NVIC_SetPriority(SPI1_IRQn, 6);
 }
 
 /*
