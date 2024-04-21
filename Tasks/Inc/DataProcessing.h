@@ -6,7 +6,6 @@
 #define FIR_FILTER_ORDER		16
 #define IIR_FILTER_ORDER		2
 
-
 /*
  * **********************************************
  * IIR Filter Coefficients
@@ -67,7 +66,13 @@ typedef struct
 
 }IIR_LowPass_Filter;
 
-void DataProcessing(void *pvParameters);
+/*
+ * **********************************************
+ * Function Declarations
+ * **********************************************
+ */
+
+void DataProcessing();
 
 
 #endif /* INC_DATAPROCESSING_H_ */

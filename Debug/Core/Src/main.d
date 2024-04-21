@@ -1,6 +1,7 @@
 Core/Src/main.o: ../Core/Src/main.c \
+ C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Src/Project_Drivers/Inc/ProgramInit.h \
  C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/ReadSPIData.h \
- C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Inc/DataHandles.h \
+ C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Src/Project_Drivers/Inc/DataHandles.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Inc/FreeRTOSConfig.h \
@@ -32,11 +33,13 @@ Core/Src/main.o: ../Core/Src/main.c \
  C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/DataProcessing.h \
  C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/UART_Gatekeeper.h \
  C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/CLI_Interface.h \
- C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Inc/FIFO_Buffer.h \
- C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Inc/DataHandles.h \
- C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/PulseWidthMod_Output.h
+ C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Src/Project_Drivers/Inc/FIFO_Buffer.h \
+ C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Src/Project_Drivers/Inc/DataHandles.h \
+ C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/PulseWidthMod_Output.h \
+ C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Src/Project_Drivers/Inc/TIM3_Driver.h
+C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Src/Project_Drivers/Inc/ProgramInit.h:
 C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/ReadSPIData.h:
-C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Inc/DataHandles.h:
+C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Src/Project_Drivers/Inc/DataHandles.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Inc/FreeRTOSConfig.h:
@@ -68,6 +71,7 @@ C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Drivers/stm32f4xx_periphDr
 C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/DataProcessing.h:
 C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/UART_Gatekeeper.h:
 C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/CLI_Interface.h:
-C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Inc/FIFO_Buffer.h:
-C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Inc/DataHandles.h:
+C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Src/Project_Drivers/Inc/FIFO_Buffer.h:
+C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Src/Project_Drivers/Inc/DataHandles.h:
 C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/PulseWidthMod_Output.h:
+C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Src/Project_Drivers/Inc/TIM3_Driver.h:

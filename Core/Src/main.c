@@ -1,14 +1,13 @@
-#include "ReadSPIData.h"
-#include "DataProcessing.h"
-#include "UART_Gatekeeper.h"
-#include "CLI_Interface.h"
-#include "PulseWidthMod_Output.h"
+#include "ProgramInit.h"
+#include "TIM3_Driver.h"
 #include <stdio.h>
+
+#define NUM_OF_TASKS		5
 
 void SPI_Specs_Init();
 void Slave_Pin_Init();
-void Tim3_PWM_Init(uint8_t channel);
-void Tim3Init();
+void UART2_Init();
+void SPI1_Init();
 
 int main()
 {
@@ -17,16 +16,9 @@ int main()
 	 * Initialize Peripherals using stm32f4xx_periphDrivers
 	 **************************************************************
 	 */
-	UART_Config(&UART2, USART2, UART_MODE_TXRX, 115200);
-	UART_Init(&UART2);
-	UART_Interrupt_Init(&UART2, UART_RXNEIE_Enable);
-	NVIC_SetPriority(USART2_IRQn, 6);
-
-	SPI_Specs_Init();
-	SPI_Init(&SPI1_Example);
-	Slave_Pin_Init();
-
-	Tim3Init();
+	UART2_Init();
+	SPI1_Init();
+	TIM3Init();
 
 	/*
 	 **************************************************************
@@ -40,14 +32,26 @@ int main()
 	adxl_data_queue = xQueueCreate(50, sizeof(AccelerometerData));  		//Create queue to hold read data
 	filtered_data_queue = xQueueCreate(10, sizeof(AccelerometerData));		//Create queue to transmit the filtered data
 
-	xTaskCreate(CommandLineRead, "Read UART", 500, NULL, 4, NULL);
-	xTaskCreate(ReadADXLData, "Read ADXL Task", 1000, NULL, 3, NULL);
-	xTaskCreate(DataProcessing, "Data Processing Task", 1000, NULL, 2, NULL);
-	xTaskCreate(UART_GateKeeper, "Print Filtered Data", 500, NULL, 1, NULL);
-	xTaskCreate(DisplayData_PWM, "PWM of Data", 200, NULL, 1, NULL);
+	if(ProgramInit() == NUM_OF_TASKS)
+	{
+		vTaskStartScheduler();
+	}
 
-	vTaskStartScheduler();
+}
 
+void SPI1_Init()
+{
+	SPI_Specs_Init();
+	SPI_Init(&SPI1_Example);
+	Slave_Pin_Init();
+}
+
+void UART2_Init()
+{
+	UART_Config(&UART2, USART2, UART_MODE_TXRX, 115200);
+	UART_Init(&UART2);
+	UART_Interrupt_Init(&UART2, UART_RXNEIE_Enable);
+	NVIC_SetPriority(USART2_IRQn, 6);
 }
 
 /*
@@ -83,57 +87,5 @@ void Slave_Pin_Init()
 	GPIOA->ODR |= (1U << 8); //Used to enable the P-MOS and ensure CS is active high
 }
 
-void Tim3_PWM_Init(uint8_t channel)
-{
-	TIM3->CR1 |= CR1_ARPE_Enable;
 
-	switch(channel)
-	{
-	case 1:
-		TIM3->CCER |= CapComp1_Enable;
-		TIM3->CCMR1 |= OCM1_PWM_Mode | OCPE1_Enable;
-		break;
 
-	case 2:
-		TIM3->CCER |= CapComp2_Enable;
-		TIM3->CCMR1 |= OCM2_PWM_Mode | OCPE2_Enable;
-		break;
-
-	case 4:
-		TIM3->CCER |= CapComp4_Enable;
-		TIM3->CCMR2 |= OCM4_PWM_Mode | OCPE4_Enable;
-		break;
-	}
-}
-
-void Tim3Init()
-{
-	GPIO_Config_t x_axis, y_axis, z_axis;
-
-	//Enable Clock Access to TIM2
-	RCC_APB1Cmd(TIM3_Enable, ENABLE);
-
-	//Init the output ports for ouput compare mode
-	GPIO_Config(&x_axis, GPIOC, Pin6, GPIO_AF, GPIO_PushPull, GPIO_MediumSpeed, GPIO_PUPD_None);
-	GPIO_Init(&x_axis, AF2);
-
-	GPIO_Config(&y_axis, GPIOC, Pin7, GPIO_AF, GPIO_PushPull, GPIO_MediumSpeed, GPIO_PUPD_None);
-	GPIO_Init(&y_axis, AF2);
-
-	GPIO_Config(&z_axis, GPIOC, Pin9, GPIO_AF, GPIO_PushPull, GPIO_MediumSpeed, GPIO_PUPD_None);
-	GPIO_Init(&z_axis, AF2);
-
-	//Enable PWM mode on the specified channels
-	Tim3_PWM_Init(1);
-	Tim3_PWM_Init(2);
-	Tim3_PWM_Init(4);
-
-	//Set Prescaler and value to count to
-	TIM3->PSC = 16;
-	TIM3->ARR = 150;
-
-	//Enable the TIM2
-	TIM3->EGR |= EGR_Enable;
-	TIM3->CR1 |= CR1_CEN;
-
-}

@@ -3,7 +3,12 @@
 
 #include "DataHandles.h"
 
-void ReadADXLData(void *pvParameters);
+/***********************************************
+ * Function Declarations
+ ***********************************************
+ */
+
+void ReadADXLData();
 void SPI1_IRQHandler();
 
 #endif /* INC_READSPIDATA_H_ */

@@ -16,8 +16,8 @@ RM := rm -rf
 -include Middlewares/Third_Party/FreeRTOS/Source/subdir.mk
 -include Drivers/stm32f4xx_periphDrivers/Src/subdir.mk
 -include Core/Startup/subdir.mk
+-include Core/Src/Project_Drivers/Src/subdir.mk
 -include Core/Src/subdir.mk
--include Core/Inc/subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)

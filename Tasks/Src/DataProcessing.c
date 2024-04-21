@@ -8,14 +8,17 @@
  */
 
 /*
+ * @Note: IIR Filter not used as FIR filter better suited this scenario. Due to needing to filter data from the x, y and z axis, and IIR filter
+ * would require 3 different filters each made up of 3 cascades as they utilize previous outputs of data. Therefore, in terms of implementation, it made more
+ * sense to utilize the FIR filter.
+ */
+
+/*
  * @Brief	This function is used to initialize a singular cascade in a higher order IIR filter. This function initializes the
  * 			coefficients and the gain.
  *
  * @Note	Implementing higher order IIR filters linearly (similar to the way the FIR filter was implemented) can lead to exponential
- * 			oscillations of the output. To implement the IIR filter, it is considered better practice to use a system of second order polynomials/
- * 			product of bi-quads.
- *
- * @Note	To see design of filter see README file
+ * 			oscillations of the output. To implement the IIR filter, I used a system of second order polynomials (bi-quads) in a cascade.
  */
 static void InitCascade(IIR_LowPass_Filter *filter, float num_coeff[], float denom_coeff[], int order, float gain)
 {
@@ -46,7 +49,6 @@ static void InitCascade(IIR_LowPass_Filter *filter, float num_coeff[], float den
  *
  * @Note	This filter is based offf an elliptic lowpass filter - designed in MATLAB.
  *
- * @Note	To see how these equations were derived see README
  */
 static void CascadeIIR(IIR_LowPass_Filter *filter, AccelerometerData *input)
 {
@@ -129,21 +131,17 @@ static void FIRFilterComputation(FIR_LowPass_Filter *filter, AccelerometerData *
 	input->value = filter->output;
 }
 
-void DataProcessing(void *pvParameters)
+/*
+ * @Brief	Function used to create data processing thread
+ */
+void DataProcessing()
 {
 	AccelerometerData rec_data;
 	FIR_LowPass_Filter x_lowpass, y_lowpass, z_lowpass;
-	float input = 0.0, output = 0;
-
-	/*IIR_LowPass_Filter cascade1, cascade2, cascade3;
-	InitCascade(&cascade1, NUMERATOR_CASCADE1_COEFFICIENTS, DENOMINATOR_CASCADE1_COEFFICIENTS, IIR_FILTER_ORDER, GAIN_CASCADE1);
-	InitCascade(&cascade2, NUMERATOR_CASCADE2_COEFFICIENTS, DENOMINATOR_CASCADE2_COEFFICIENTS, IIR_FILTER_ORDER, GAIN_CASCADE2);
-	InitCascade(&cascade3, NUMERATOR_CASCADE3_COEFFICIENTS, DENOMINATOR_CASCADE3_COEFFICIENTS, IIR_FILTER_ORDER, GAIN_CASCADE3);*/
 
 	InitFIRFilter(&x_lowpass);
 	InitFIRFilter(&y_lowpass);
 	InitFIRFilter(&z_lowpass);
-	TickType_t _10ms = pdMS_TO_TICKS(10);
 
 	while(1)
 	{
@@ -154,7 +152,6 @@ void DataProcessing(void *pvParameters)
 		switch(rec_data.axis)
 		{
 			case x_axis:
-				input = rec_data.value;
 				FIRFilterComputation(&x_lowpass, &rec_data);
 				break;
 
@@ -164,6 +161,9 @@ void DataProcessing(void *pvParameters)
 
 			case z_axis:
 				FIRFilterComputation(&z_lowpass, &rec_data);
+				break;
+
+			case no_axis:
 				break;
 		}
 

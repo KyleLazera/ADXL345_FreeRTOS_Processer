@@ -1,3 +1,0 @@
-../Core/Src/FIFO_Buffer.c:6:6:ClearBuffer	2
-../Core/Src/FIFO_Buffer.c:22:6:Push	2
-../Core/Src/FIFO_Buffer.c:38:6:Pop	3

@@ -1,12 +1,18 @@
 #include "PulseWidthMod_Output.h"
 
+/*
+ * @Brief	Adjust Duty cycle for LED display.
+ * @Note	This will cause the LEDs to adjust brightness as each axis is changes
+ */
 static void SetDutyCycle(uint8_t channel, int value)
 {
+	//Use to ensure no negative values are used
 	if(value < 0)
 	{
 		value *= (-1);
 	}
 
+	//Set the duty cycle for each channel for TIM3
 	switch(channel)
 	{
 	case 1:

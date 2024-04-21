@@ -7,7 +7,7 @@
 
 /*
  ***********************************************************
- * Declare Peripheral Handles
+ * Declare Global Peripheral Handles
  ***********************************************************
  */
 extern SPI_Handle_t SPI1_Example;
@@ -16,17 +16,18 @@ extern UART_Config_t UART2;
 
 /*
  ***********************************************************
- * Declare FreeRTOS Global Variables
+ * Declare FreeRTOS Global Variables ie. Semaphores, Qeues etc.
  ***********************************************************
  */
 extern QueueHandle_t adxl_data_queue, filtered_data_queue, print_data;
-
 extern SemaphoreHandle_t read_uart, read_spi;
 
+extern TickType_t _5ms, _10ms;
+
 /*
- ************************************************************
- * Global Variables
- ************************************************************
+ ***********************************************************
+ * Accelerometer Data Structure
+ ***********************************************************
  */
 
 typedef enum
@@ -37,20 +38,21 @@ typedef enum
 	z_axis,
 }AxisOfRotation;
 
-extern AxisOfRotation axis_to_display;
-extern int readingTask, filterTask, gatekeeper, cli_interface, pwm_count;
-
-/*
- ***********************************************************
- * Accelerometer Data Structure
- ***********************************************************
- */
-
 typedef struct
 {
 	AxisOfRotation axis;
 	float value;
 }AccelerometerData;
+
+/*
+ ************************************************************
+ * Global Variables
+ ************************************************************
+ */
+
+extern AxisOfRotation axis_to_display;
+extern int readingTask, filterTask, gatekeeper, cli_interface, pwm_count;
+
 
 /*
  **************************************************************

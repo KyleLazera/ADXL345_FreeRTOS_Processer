@@ -1,7 +1,7 @@
 #include "ReadSPIData.h"
 
 /*
- * @Brief	Used to initialize ADXL registers: Set range to +-4g, allow continous
+ * @Brief	Used to initialize ADXL registers: Set range to +-4g, allow continuous
  * reading of data registers and set transfer frequency at 100Hz.
  */
 static void InitADXL()
@@ -17,7 +17,7 @@ static void InitADXL()
 	SPI_MultiSlave_TransmitIT(&SPI1_Example, &ADXL, adxl_set_powerctl_reg, 2);
 }
 
-void ReadADXLData(void *pvParameters)
+void ReadADXLData()
 {
 	AccelerometerData data;
 
@@ -26,8 +26,6 @@ void ReadADXLData(void *pvParameters)
 	int16_t x, y, z;					//Variables that will store the data from the buffer
 
 	InitADXL();
-
-	TickType_t _5ms = pdMS_TO_TICKS(5);
 
 	while(1)
 	{
@@ -43,7 +41,7 @@ void ReadADXLData(void *pvParameters)
 		x = ((adxl_data_rec[2] << 8) | adxl_data_rec[1]);
 		data.axis = x_axis;
 		data.value = x;
-		xQueueSend(adxl_data_queue, &data, portMAX_DELAY);
+		xQueueSend(adxl_data_queue, &data, _5ms);
 
 		y = ((adxl_data_rec[4] << 8) | adxl_data_rec[3]);
 		data.axis = y_axis;
@@ -60,15 +58,14 @@ void ReadADXLData(void *pvParameters)
 }
 
 /*
- * Function to serve interrupts
+ * @Brief	Interrupt Service Routine for the SPI Peripheral
+ * @Note	Serviced by the SPI_IRQ_Handler function defined in the stm32f4xx_periphDrivers
  */
 void SPI1_IRQHandler()
 {
 	BaseType_t xHigherPriorityTaskWoken = pdFALSE;
 
 	SPI_IRQ_Handler(&SPI1_Example);
-
-	//xSemaphoreGiveFromISR(read_spi, &xHigherPriorityTaskWoken);
 
 	//Causes a context switch for the CPU
 	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
