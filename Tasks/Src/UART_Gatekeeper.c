@@ -1,60 +1,24 @@
 #include "UART_Gatekeeper.h"
 
 
-static void SetDutyCycle(uint8_t channel, int value)
-{
-	if(value < 0)
-	{
-		value *= (-1);
-	}
-
-	switch(channel)
-	{
-	case 1:
-		TIM3->CCR1 = value;
-		break;
-
-	case 2:
-		TIM3->CCR2 = value;
-		break;
-
-	case 4:
-		TIM3->CCR4 = value;
-		break;
-	}
-}
-
-
-void OutputData(void *pvParameters)
+void UART_GateKeeper(void *pvParameters)
 {
 	AccelerometerData filtered_data;
+	TickType_t _10ms = pdMS_TO_TICKS(10);
 
 	while(1)
 	{
+		//xSemaphoreTake(print_data, _10ms);
 		gatekeeper++;
 
 		xQueueReceive(filtered_data_queue, &filtered_data, 0);
 
-		if(filtered_data.axis == x_axis )
+		if(filtered_data.axis == axis_to_display)
 		{
-			if(axis_to_display == x_axis)
-				printf("%.2f\n\r", filtered_data.value);
-			SetDutyCycle(1, (int)filtered_data.value);
+			printf("%.2f\n\r", filtered_data.value);
 		}
 
-		if(filtered_data.axis == y_axis)
-		{
-			if(axis_to_display == y_axis)
-				printf("%.2f\n\r", filtered_data.value);
-			SetDutyCycle(1, (int)filtered_data.value);
-		}
-
-		if(filtered_data.axis == z_axis)
-		{
-			if(axis_to_display == z_axis)
-				printf("%.2f\n\r", filtered_data.value);
-			SetDutyCycle(1, (int)filtered_data.value);
-		}
+		xQueueSend(print_data, &filtered_data, _10ms);
 
 	}
 }

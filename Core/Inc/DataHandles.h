@@ -19,7 +19,7 @@ extern UART_Config_t UART2;
  * Declare FreeRTOS Global Variables
  ***********************************************************
  */
-extern QueueHandle_t adxl_data_queue, filtered_data_queue;
+extern QueueHandle_t adxl_data_queue, filtered_data_queue, print_data;
 
 extern SemaphoreHandle_t read_uart, read_spi;
 
@@ -38,7 +38,7 @@ typedef enum
 }AxisOfRotation;
 
 extern AxisOfRotation axis_to_display;
-extern int readingTask, filterTask, gatekeeper, cli_interface, spi_int;
+extern int readingTask, filterTask, gatekeeper, cli_interface, pwm_count;
 
 /*
  ***********************************************************

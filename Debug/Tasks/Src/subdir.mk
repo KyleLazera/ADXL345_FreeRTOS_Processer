@@ -7,18 +7,21 @@
 C_SRCS += \
 ../Tasks/Src/CLI_Interface.c \
 ../Tasks/Src/DataProcessing.c \
+../Tasks/Src/PulseWidthMod_Output.c \
 ../Tasks/Src/ReadSPIData.c \
 ../Tasks/Src/UART_Gatekeeper.c 
 
 OBJS += \
 ./Tasks/Src/CLI_Interface.o \
 ./Tasks/Src/DataProcessing.o \
+./Tasks/Src/PulseWidthMod_Output.o \
 ./Tasks/Src/ReadSPIData.o \
 ./Tasks/Src/UART_Gatekeeper.o 
 
 C_DEPS += \
 ./Tasks/Src/CLI_Interface.d \
 ./Tasks/Src/DataProcessing.d \
+./Tasks/Src/PulseWidthMod_Output.d \
 ./Tasks/Src/ReadSPIData.d \
 ./Tasks/Src/UART_Gatekeeper.d 
 
@@ -30,7 +33,7 @@ Tasks/Src/%.o Tasks/Src/%.su Tasks/Src/%.cyclo: ../Tasks/Src/%.c Tasks/Src/subdi
 clean: clean-Tasks-2f-Src
 
 clean-Tasks-2f-Src:
-	-$(RM) ./Tasks/Src/CLI_Interface.cyclo ./Tasks/Src/CLI_Interface.d ./Tasks/Src/CLI_Interface.o ./Tasks/Src/CLI_Interface.su ./Tasks/Src/DataProcessing.cyclo ./Tasks/Src/DataProcessing.d ./Tasks/Src/DataProcessing.o ./Tasks/Src/DataProcessing.su ./Tasks/Src/ReadSPIData.cyclo ./Tasks/Src/ReadSPIData.d ./Tasks/Src/ReadSPIData.o ./Tasks/Src/ReadSPIData.su ./Tasks/Src/UART_Gatekeeper.cyclo ./Tasks/Src/UART_Gatekeeper.d ./Tasks/Src/UART_Gatekeeper.o ./Tasks/Src/UART_Gatekeeper.su
+	-$(RM) ./Tasks/Src/CLI_Interface.cyclo ./Tasks/Src/CLI_Interface.d ./Tasks/Src/CLI_Interface.o ./Tasks/Src/CLI_Interface.su ./Tasks/Src/DataProcessing.cyclo ./Tasks/Src/DataProcessing.d ./Tasks/Src/DataProcessing.o ./Tasks/Src/DataProcessing.su ./Tasks/Src/PulseWidthMod_Output.cyclo ./Tasks/Src/PulseWidthMod_Output.d ./Tasks/Src/PulseWidthMod_Output.o ./Tasks/Src/PulseWidthMod_Output.su ./Tasks/Src/ReadSPIData.cyclo ./Tasks/Src/ReadSPIData.d ./Tasks/Src/ReadSPIData.o ./Tasks/Src/ReadSPIData.su ./Tasks/Src/UART_Gatekeeper.cyclo ./Tasks/Src/UART_Gatekeeper.d ./Tasks/Src/UART_Gatekeeper.o ./Tasks/Src/UART_Gatekeeper.su
 
 .PHONY: clean-Tasks-2f-Src
 

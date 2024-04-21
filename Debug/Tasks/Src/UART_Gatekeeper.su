@@ -1,2 +1,1 @@
-../Tasks/Src/UART_Gatekeeper.c:4:13:SetDutyCycle	16	static
-../Tasks/Src/UART_Gatekeeper.c:28:6:OutputData	24	static
+../Tasks/Src/UART_Gatekeeper.c:4:6:UART_GateKeeper	32	static

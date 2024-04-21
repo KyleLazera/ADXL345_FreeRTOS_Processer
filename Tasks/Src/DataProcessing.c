@@ -156,20 +156,18 @@ void DataProcessing(void *pvParameters)
 			case x_axis:
 				input = rec_data.value;
 				FIRFilterComputation(&x_lowpass, &rec_data);
-				xQueueSend(filtered_data_queue, &rec_data, _10ms);
-				//printf("%.2f\n\r", rec_data.value);
 				break;
 
 			case y_axis:
 				FIRFilterComputation(&y_lowpass, &rec_data);
-				xQueueSend(filtered_data_queue, &rec_data, _10ms);
 				break;
 
 			case z_axis:
 				FIRFilterComputation(&z_lowpass, &rec_data);
-				xQueueSend(filtered_data_queue, &rec_data, _10ms);
 				break;
 		}
+
+		xQueueSend(filtered_data_queue, &rec_data, _10ms);
 	}
 }
 

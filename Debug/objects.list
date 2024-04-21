@@ -23,5 +23,6 @@
 "./Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.o"
 "./Tasks/Src/CLI_Interface.o"
 "./Tasks/Src/DataProcessing.o"
+"./Tasks/Src/PulseWidthMod_Output.o"
 "./Tasks/Src/ReadSPIData.o"
 "./Tasks/Src/UART_Gatekeeper.o"

@@ -2,6 +2,7 @@
 #include "DataProcessing.h"
 #include "UART_Gatekeeper.h"
 #include "CLI_Interface.h"
+#include "PulseWidthMod_Output.h"
 #include <stdio.h>
 
 void SPI_Specs_Init();
@@ -35,13 +36,15 @@ int main()
 	read_uart = xSemaphoreCreateBinary();
 	read_spi = xSemaphoreCreateBinary();
 
+	print_data = xQueueCreate(10, sizeof(AccelerometerData));				//Queue to send data between PWM and print data
 	adxl_data_queue = xQueueCreate(50, sizeof(AccelerometerData));  		//Create queue to hold read data
 	filtered_data_queue = xQueueCreate(10, sizeof(AccelerometerData));		//Create queue to transmit the filtered data
 
-	xTaskCreate(CommandLineRead, "Read UART", 1000, NULL, 4, NULL);
+	xTaskCreate(CommandLineRead, "Read UART", 500, NULL, 4, NULL);
 	xTaskCreate(ReadADXLData, "Read ADXL Task", 1000, NULL, 3, NULL);
 	xTaskCreate(DataProcessing, "Data Processing Task", 1000, NULL, 2, NULL);
-	xTaskCreate(OutputData, "Print Filtered Data", 500, NULL, 1, NULL);
+	xTaskCreate(UART_GateKeeper, "Print Filtered Data", 500, NULL, 1, NULL);
+	xTaskCreate(DisplayData_PWM, "PWM of Data", 200, NULL, 1, NULL);
 
 	vTaskStartScheduler();
 
