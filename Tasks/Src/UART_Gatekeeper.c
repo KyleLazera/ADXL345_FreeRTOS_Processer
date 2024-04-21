@@ -35,24 +35,25 @@ void OutputData(void *pvParameters)
 
 		xQueueReceive(filtered_data_queue, &filtered_data, 0);
 
-		switch(filtered_data.axis)
+		if(filtered_data.axis == x_axis )
 		{
-		case x_axis:
-			printf("%.2f\n\r", filtered_data.value);
+			if(axis_to_display == x_axis)
+				printf("%.2f\n\r", filtered_data.value);
 			SetDutyCycle(1, (int)filtered_data.value);
-			break;
+		}
 
-		case y_axis:
+		if(filtered_data.axis == y_axis)
+		{
+			if(axis_to_display == y_axis)
+				printf("%.2f\n\r", filtered_data.value);
+			SetDutyCycle(1, (int)filtered_data.value);
+		}
 
-			//printf("%.2f\n\r", filtered_data.value);
-			SetDutyCycle(2, (int)filtered_data.value);
-			break;
-
-		case z_axis:
-
-			//printf("%.2f\n\r", filtered_data.value);
-			SetDutyCycle(4, (int)filtered_data.value);
-			break;
+		if(filtered_data.axis == z_axis)
+		{
+			if(axis_to_display == z_axis)
+				printf("%.2f\n\r", filtered_data.value);
+			SetDutyCycle(1, (int)filtered_data.value);
 		}
 
 	}

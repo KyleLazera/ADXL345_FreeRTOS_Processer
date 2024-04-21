@@ -9,7 +9,7 @@ QueueHandle_t adxl_data_queue, filtered_data_queue;
 SemaphoreHandle_t read_uart, read_spi;
 
 int readingTask, filterTask, gatekeeper, cli_interface, spi_int;
-char buffer[10];
+AxisOfRotation axis_to_display;
 
 int __io_putchar(int ch)
 {

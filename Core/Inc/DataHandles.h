@@ -16,27 +16,35 @@ extern UART_Config_t UART2;
 
 /*
  ***********************************************************
- * Declare FreeRTOS Variables
+ * Declare FreeRTOS Global Variables
  ***********************************************************
  */
 extern QueueHandle_t adxl_data_queue, filtered_data_queue;
 
 extern SemaphoreHandle_t read_uart, read_spi;
 
+/*
+ ************************************************************
+ * Global Variables
+ ************************************************************
+ */
+
+typedef enum
+{
+	no_axis,
+	x_axis,
+	y_axis,
+	z_axis,
+}AxisOfRotation;
+
+extern AxisOfRotation axis_to_display;
 extern int readingTask, filterTask, gatekeeper, cli_interface, spi_int;
-extern char buffer[10];
 
 /*
  ***********************************************************
  * Accelerometer Data Structure
  ***********************************************************
  */
-typedef enum
-{
-	x_axis,
-	y_axis,
-	z_axis,
-}AxisOfRotation;
 
 typedef struct
 {
