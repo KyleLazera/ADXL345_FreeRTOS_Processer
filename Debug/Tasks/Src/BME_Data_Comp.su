@@ -1,0 +1,4 @@
+../Tasks/Src/BME_Data_Comp.c:10:13:Compensation_values_Derivation	16	static
+../Tasks/Src/BME_Data_Comp.c:25:13:Read_Compensation_Values	48	static
+../Tasks/Src/BME_Data_Comp.c:42:13:BME280_compenstae_temp	56	static
+../Tasks/Src/BME_Data_Comp.c:62:6:BME_Data_Calculation	64	static

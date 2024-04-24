@@ -22,7 +22,7 @@ C_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
-Core/Src/Project_Drivers/Src \
+Core/Project_Drivers/Src \
 Core/Src \
 Core/Startup \
 Drivers/stm32f4xx_periphDrivers/Src \

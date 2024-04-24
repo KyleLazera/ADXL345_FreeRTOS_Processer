@@ -17,6 +17,7 @@ Core/Src/Project_Drivers/Src/ProgramInit.o: \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
+ ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
  C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Drivers/stm32f4xx_periphDrivers/Inc/stm32f401_spi.h \
  ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h \
@@ -36,7 +37,9 @@ Core/Src/Project_Drivers/Src/ProgramInit.o: \
  C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/CLI_Interface.h \
  C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Src/Project_Drivers/Inc/FIFO_Buffer.h \
  C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Src/Project_Drivers/Inc/DataHandles.h \
- C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/PulseWidthMod_Output.h
+ C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/PulseWidthMod_Output.h \
+ C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/ReadI2CData.h \
+ C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/BME_Data_Comp.h
 C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Src/Project_Drivers/Inc/ProgramInit.h:
 C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/ReadSPIData.h:
 C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Src/Project_Drivers/Inc/DataHandles.h:
@@ -54,6 +57,7 @@ C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Inc/FreeRTOSConfig.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h:
+../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:
 C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Drivers/stm32f4xx_periphDrivers/Inc/stm32f401_spi.h:
 ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:
@@ -74,3 +78,5 @@ C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/CLI_Interface.h:
 C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Src/Project_Drivers/Inc/FIFO_Buffer.h:
 C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Core/Src/Project_Drivers/Inc/DataHandles.h:
 C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/PulseWidthMod_Output.h:
+C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/ReadI2CData.h:
+C:/Users/klaze/STM32Cube_Projects/DataProcessing_ADXL/Tasks/Inc/BME_Data_Comp.h:

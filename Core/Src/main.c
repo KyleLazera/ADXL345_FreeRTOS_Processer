@@ -2,12 +2,12 @@
 #include "TIM3_Driver.h"
 #include <stdio.h>
 
-#define NUM_OF_TASKS		5
 
 void SPI_Specs_Init();
 void Slave_Pin_Init();
 void UART2_Init();
 void SPI1_Init();
+void I2C1_Init();
 
 int main()
 {
@@ -19,6 +19,7 @@ int main()
 	UART2_Init();
 	SPI1_Init();
 	TIM3Init();
+	I2C1_Init();
 
 	/*
 	 **************************************************************
@@ -27,15 +28,22 @@ int main()
 	 */
 	read_uart = xSemaphoreCreateBinary();
 	read_spi = xSemaphoreCreateBinary();
+	read_i2c = xSemaphoreCreateMutex();
+
+	read_bme_sensor = xTimerCreate("Periodic Read", pdMS_TO_TICKS(50), pdTRUE, 0, ReadData);
+	xTimerStart(read_bme_sensor, 0);
 
 	print_data = xQueueCreate(10, sizeof(AccelerometerData));				//Queue to send data between PWM and print data
 	adxl_data_queue = xQueueCreate(50, sizeof(AccelerometerData));  		//Create queue to hold read data
 	filtered_data_queue = xQueueCreate(10, sizeof(AccelerometerData));		//Create queue to transmit the filtered data
+	print_i2c_data = xQueueCreate(10, sizeof(BME_Values));
+	send_raw_i2c = xQueueCreate(10, sizeof(bme_raw_array));
+	//new_filtered_data_queue = xQueueCreate(10, sizeof(Sensor_Data));
 
-	if(ProgramInit() == NUM_OF_TASKS)
-	{
-		vTaskStartScheduler();
-	}
+	ProgramInit();
+
+	vTaskStartScheduler();
+
 
 }
 
@@ -51,7 +59,13 @@ void UART2_Init()
 	UART_Config(&UART2, USART2, UART_MODE_TXRX, 115200);
 	UART_Init(&UART2);
 	UART_Interrupt_Init(&UART2, UART_RXNEIE_Enable);
-	NVIC_SetPriority(USART2_IRQn, 6);
+	NVIC_SetPriority(USART2_IRQn, 5);
+}
+
+void I2C1_Init()
+{
+	I2C_Config(&BME_Sensor, I2C1, SM_100KHZ, FM_DUTY_2, Pin8, Pin9);
+	I2C_Init(&BME_Sensor);
 }
 
 /*

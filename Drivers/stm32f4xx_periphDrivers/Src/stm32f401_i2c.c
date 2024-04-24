@@ -454,6 +454,8 @@ static void Enable_Interrupt_Handler(I2C_TypeDef *I2Cx)
 		NVIC_EnableIRQ(I2C3_EV_IRQn);
 		NVIC_EnableIRQ(I2C3_ER_IRQn);
 	}
+
+	NVIC_SetPriority(I2C1_EV_IRQn, 7);
 }
 
 /*

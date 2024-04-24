@@ -8,6 +8,7 @@
 SPI_Handle_t SPI1_Example;
 GPIO_Config_t ADXL;
 UART_Config_t UART2;
+I2C_Handle_t BME_Sensor;
 
 /*
  ***********************************************************
@@ -15,8 +16,9 @@ UART_Config_t UART2;
  ***********************************************************
  */
 
-QueueHandle_t adxl_data_queue, filtered_data_queue, print_data;
-SemaphoreHandle_t read_uart, read_spi;
+QueueHandle_t adxl_data_queue, filtered_data_queue, print_data, print_i2c_data, send_raw_i2c, new_filtered_data_queue;
+SemaphoreHandle_t read_uart, read_spi, read_i2c;
+TimerHandle_t read_bme_sensor;
 
 TickType_t _5ms = pdMS_TO_TICKS(5);
 TickType_t _10ms = pdMS_TO_TICKS(10);
@@ -26,7 +28,7 @@ TickType_t _10ms = pdMS_TO_TICKS(10);
  ************************************************************
  */
 
-int readingTask, filterTask, gatekeeper, cli_interface, pwm_count;
+int readingTask, filterTask, gatekeeper, cli_interface, pwm_count, i2c_count, comp_count;
 AxisOfRotation axis_to_display = no_axis;
 
 /*

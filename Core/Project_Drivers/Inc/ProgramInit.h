@@ -12,6 +12,8 @@
 #include "UART_Gatekeeper.h"
 #include "CLI_Interface.h"
 #include "PulseWidthMod_Output.h"
+#include "ReadI2CData.h"
+#include "BME_Data_Comp.h"
 
 /*
  ****************************************************
@@ -36,7 +38,7 @@
  *Function Declarations
  ****************************************************
  */
-uint8_t ProgramInit();
+void ProgramInit();
 
 
 #endif /* SRC_PROJECT_DRIVERS_INC_PROGRAMINIT_H_ */

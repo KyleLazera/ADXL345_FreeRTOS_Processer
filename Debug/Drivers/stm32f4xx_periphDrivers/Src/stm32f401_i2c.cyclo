@@ -1,4 +1,5 @@
 ../Drivers/CMSIS/Include/core_cm4.h:1684:22:__NVIC_EnableIRQ	2
+../Drivers/CMSIS/Include/core_cm4.h:1814:22:__NVIC_SetPriority	2
 ../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_i2c.c:33:13:Enable_I2C_Periph	1
 ../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_i2c.c:43:13:Generate_Start_Condition	1
 ../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_i2c.c:53:20:Check_Flag	2
@@ -11,10 +12,10 @@
 ../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_i2c.c:300:6:I2C_MasterTransmit	8
 ../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_i2c.c:358:6:I2C_MasterRecieve	11
 ../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_i2c.c:438:13:Enable_Interrupt_Handler	3
-../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_i2c.c:464:13:I2C_EndDataTransmission	1
-../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_i2c.c:481:13:MasterTransmit_TxEInterrupt	2
-../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_i2c.c:500:13:MasterRecieve_RXNEInterrupt	5
-../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_i2c.c:550:6:I2C_MasterTransmitIT	3
-../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_i2c.c:576:6:I2C_MasterRecieveIT	3
-../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_i2c.c:608:6:IRQ_Event_Handler	16
-../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_i2c.c:678:6:IRQ_Error_Handler	15
+../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_i2c.c:466:13:I2C_EndDataTransmission	1
+../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_i2c.c:483:13:MasterTransmit_TxEInterrupt	2
+../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_i2c.c:502:13:MasterRecieve_RXNEInterrupt	5
+../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_i2c.c:552:6:I2C_MasterTransmitIT	3
+../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_i2c.c:578:6:I2C_MasterRecieveIT	3
+../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_i2c.c:610:6:IRQ_Event_Handler	16
+../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_i2c.c:680:6:IRQ_Error_Handler	15
