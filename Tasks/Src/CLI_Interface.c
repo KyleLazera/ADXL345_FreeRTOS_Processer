@@ -7,27 +7,40 @@
  */
 FIFO_Buffer Command_Line_Buffer;
 
-const char x_axis_[] = "xaxis\r";
-const char y_axis_[] = "yaxis\r";
-const char z_axis_[] = "zaxis\r";
-
 /*
  * @Brief	Function used to compare the FIFO Buffer contents with pre-set messages.
  * @Note	This function will determine output based off CLI input
  */
 static void CommandLineParser()
 {
-	if(strcmp(x_axis_, Command_Line_Buffer.buffer) == 0){
+	if(strcmp("xaxis\r", Command_Line_Buffer.buffer) == 0){
 		axis_to_display = x_axis;
+		value_to_display = no_value;
 		ClearBuffer(&Command_Line_Buffer);}
 
-	else if(strcmp(y_axis_, Command_Line_Buffer.buffer) == 0){
+	else if(strcmp("yaxis\r", Command_Line_Buffer.buffer) == 0){
 		axis_to_display = y_axis;
+		value_to_display = no_value;
 		ClearBuffer(&Command_Line_Buffer);}
 
-	else if(strcmp(z_axis_, Command_Line_Buffer.buffer) == 0){
+	else if(strcmp("zaxis\r", Command_Line_Buffer.buffer) == 0){
 		axis_to_display = z_axis;
+		value_to_display = no_value;
 		ClearBuffer(&Command_Line_Buffer);}
+
+	else if(strcmp("stop\r", Command_Line_Buffer.buffer) == 0){
+		axis_to_display = no_axis;
+		value_to_display = no_value;
+		ClearBuffer(&Command_Line_Buffer);}
+
+	else if(strcmp("temp\r", Command_Line_Buffer.buffer) == 0){
+		axis_to_display = no_axis;
+		value_to_display = temperature;
+		ClearBuffer(&Command_Line_Buffer);}
+
+	else if (strcmp("\r", Command_Line_Buffer.buffer) == 0){
+		ClearBuffer(&Command_Line_Buffer);}
+
 }
 
 /*

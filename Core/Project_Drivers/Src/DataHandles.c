@@ -30,6 +30,7 @@ TickType_t _10ms = pdMS_TO_TICKS(10);
 
 int readingTask, filterTask, gatekeeper, cli_interface, pwm_count, i2c_count, comp_count;
 AxisOfRotation axis_to_display = no_axis;
+BMEDisplayValue value_to_display;
 
 /*
  ************************************************************

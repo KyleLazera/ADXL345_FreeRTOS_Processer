@@ -30,7 +30,7 @@ int main()
 	read_spi = xSemaphoreCreateBinary();
 	read_i2c = xSemaphoreCreateMutex();
 
-	read_bme_sensor = xTimerCreate("Periodic Read", pdMS_TO_TICKS(50), pdTRUE, 0, ReadData);
+	read_bme_sensor = xTimerCreate("Periodic Read", pdMS_TO_TICKS(200), pdTRUE, 0, ReadData);
 	xTimerStart(read_bme_sensor, 0);
 
 	print_data = xQueueCreate(10, sizeof(AccelerometerData));				//Queue to send data between PWM and print data
@@ -38,7 +38,6 @@ int main()
 	filtered_data_queue = xQueueCreate(10, sizeof(AccelerometerData));		//Create queue to transmit the filtered data
 	print_i2c_data = xQueueCreate(10, sizeof(BME_Values));
 	send_raw_i2c = xQueueCreate(10, sizeof(bme_raw_array));
-	//new_filtered_data_queue = xQueueCreate(10, sizeof(Sensor_Data));
 
 	ProgramInit();
 

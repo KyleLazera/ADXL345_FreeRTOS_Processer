@@ -1,3 +1,3 @@
-../Tasks/Src/CLI_Interface.c:18:13:CommandLineParser	8	static
-../Tasks/Src/CLI_Interface.c:36:6:CommandLineRead	8	static
-../Tasks/Src/CLI_Interface.c:50:6:USART2_IRQHandler	16	static,ignoring_inline_asm
+../Tasks/Src/CLI_Interface.c:14:13:CommandLineParser	8	static
+../Tasks/Src/CLI_Interface.c:49:6:CommandLineRead	8	static
+../Tasks/Src/CLI_Interface.c:63:6:USART2_IRQHandler	16	static,ignoring_inline_asm

@@ -147,8 +147,7 @@ void DataProcessing()
 	{
 		filterTask++;
 
-		//xQueueReceive(adxl_data_queue, &rec_data, 0);			//Read accelerometer data from FreeRTOS queue
-		xQueueReceive(adxl_data_queue, &rec_data, 0);
+		xQueueReceive(adxl_data_queue, &rec_data, 0);			//Read accelerometer data from FreeRTOS queue
 
 		switch(rec_data.axis)
 		{
@@ -167,6 +166,7 @@ void DataProcessing()
 			case no_axis:
 				break;
 		}
+
 
 		xQueueSend(filtered_data_queue, &rec_data, _10ms);
 	}
