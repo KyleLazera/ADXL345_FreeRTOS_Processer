@@ -1,3 +1,0 @@
-../Tasks/Src/ReadSPIData.c:7:13:InitADXL	24	static
-../Tasks/Src/ReadSPIData.c:20:6:ReadADXLData	48	static
-../Tasks/Src/ReadSPIData.c:64:6:SPI1_IRQHandler	16	static,ignoring_inline_asm

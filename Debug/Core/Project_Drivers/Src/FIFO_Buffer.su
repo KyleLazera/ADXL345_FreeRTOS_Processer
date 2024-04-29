@@ -1,3 +1,0 @@
-../Core/Project_Drivers/Src/FIFO_Buffer.c:6:6:ClearBuffer	24	static
-../Core/Project_Drivers/Src/FIFO_Buffer.c:22:6:Push	16	static
-../Core/Project_Drivers/Src/FIFO_Buffer.c:38:6:Pop	24	static

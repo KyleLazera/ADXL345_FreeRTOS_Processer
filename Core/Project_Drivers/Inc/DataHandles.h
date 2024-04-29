@@ -20,7 +20,7 @@ extern I2C_Handle_t BME_Sensor;;
  * Declare FreeRTOS Global Variables ie. Semaphores, Qeues etc.
  ***********************************************************
  */
-extern QueueHandle_t adxl_data_queue, filtered_data_queue, print_data, print_i2c_data, send_raw_i2c, new_filtered_data_queue;
+extern QueueHandle_t adxl_data_queue, filtered_data_queue, print_data, print_i2c_data, send_raw_i2c;
 extern SemaphoreHandle_t read_uart, read_spi, read_i2c;
 extern TimerHandle_t read_bme_sensor;
 

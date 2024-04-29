@@ -1,9 +1,40 @@
 #include "DataProcessing.h"
 
+/*
+ * ***************************************************************************
+ * FIR Filter Coefficient Assignments
+ * ***************************************************************************
+ */
+
+const float FIR_FILTER_COEFFICIENTS[FIR_FILTER_ORDER + 1] = {0.0f, 0.001999713038027f,  0.01055288046473f,   0.0280636758414f,
+	    0.05404468140717f,  0.08475508733583f,   0.1140396836639f,   0.1351346948371f,
+	     0.1428191668237f,   0.1351346948371f,   0.1140396836639f,  0.08475508733583f,
+	    0.05404468140717f,   0.0280636758414f,  0.01055288046473f, 0.001999713038027f,
+	    0.0f};
 
 /*
  * ***************************************************************************
- * IIR Low Pass Filter Functions
+ * IIR Filter Coefficient Assignments - Deprecated
+ * ***************************************************************************
+ *
+
+const float NUMERATOR_CASCADE1_COEFFICIENTS[IIR_FILTER_ORDER + 1] = {1.0f, 1.525505452575259379699446071754209697247f, 1.0f};
+const float DENOMINATOR_CASCADE1_COEFFICIENTS[IIR_FILTER_ORDER] = {-0.823830112694799665540301703003933653235f,  0.62050953364421035374220991798210889101f};
+const float GAIN_CASCADE1 = 0.645660817653338492405623583181295543909f;
+
+
+const float NUMERATOR_CASCADE2_COEFFICIENTS[IIR_FILTER_ORDER + 1] = {1.0f, 1.926899025203367532554921126575209200382f, 1.0f};
+const float DENOMINATOR_CASCADE2_COEFFICIENTS[IIR_FILTER_ORDER] = {-1.178414131460015612518077432468999177217f,  0.418440143742314807351334593477076850832f};
+const float GAIN_CASCADE2 = 1.558318741266783380439164830022491514683f;
+
+const float NUMERATOR_CASCADE3_COEFFICIENTS[IIR_FILTER_ORDER + 1] = {1.0f, 1.217004950031076448979661108751315623522f, 1.0f};
+const float DENOMINATOR_CASCADE3_COEFFICIENTS[IIR_FILTER_ORDER] = {-0.554734277598179392754218497429974377155f,  0.86945391770266144959578014095313847065f};
+const float GAIN_CASCADE3 = 0.005327107737438318071920839713584427955f;*/
+
+
+/*
+ * ***************************************************************************
+ * IIR Low Pass Filter Functions - Deprecated
  * ***************************************************************************
  */
 
@@ -19,7 +50,7 @@
  *
  * @Note	Implementing higher order IIR filters linearly (similar to the way the FIR filter was implemented) can lead to exponential
  * 			oscillations of the output. To implement the IIR filter, I used a system of second order polynomials (bi-quads) in a cascade.
- */
+ *
 static void InitCascade(IIR_LowPass_Filter *filter, float num_coeff[], float denom_coeff[], int order, float gain)
 {
 	//Initialize buffer values to 0
@@ -42,14 +73,14 @@ static void InitCascade(IIR_LowPass_Filter *filter, float num_coeff[], float den
 
 	//Initialize gain
 	filter->gain = gain;
-}
+}*/
 
 /*
  * @Brief	Algorithm to implement the IIR filter using product of Biquads
  *
  * @Note	This filter is based offf an elliptic lowpass filter - designed in MATLAB.
  *
- */
+ *
 static void CascadeIIR(IIR_LowPass_Filter *filter, AccelerometerData *input)
 {
 	//Algorithm to calculate the intermediate value: w(n) = x(n) - a0*w(n-1) - a1*w(n-2)
@@ -64,7 +95,7 @@ static void CascadeIIR(IIR_LowPass_Filter *filter, AccelerometerData *input)
 	filter->buffer[1] = filter->buffer[0];
 	filter->buffer[0] = intermediate;
 
-}
+}*/
 
 /*
  * ***************************************************************************
@@ -147,7 +178,7 @@ void DataProcessing()
 	{
 		filterTask++;
 
-		//xQueueReceive(adxl_data_queue, &rec_data, 0);			//Read accelerometer data from FreeRTOS queue
+		//Read accelerometer data from FreeRTOS queue
 		xQueueReceive(adxl_data_queue, &rec_data, 0);
 
 		switch(rec_data.axis)

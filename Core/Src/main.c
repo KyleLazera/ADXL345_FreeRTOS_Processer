@@ -38,7 +38,6 @@ int main()
 	filtered_data_queue = xQueueCreate(10, sizeof(AccelerometerData));		//Create queue to transmit the filtered data
 	print_i2c_data = xQueueCreate(10, sizeof(BME_Values));
 	send_raw_i2c = xQueueCreate(10, sizeof(bme_raw_array));
-	//new_filtered_data_queue = xQueueCreate(10, sizeof(Sensor_Data));
 
 	ProgramInit();
 
