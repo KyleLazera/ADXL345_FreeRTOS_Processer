@@ -38,6 +38,7 @@ static void CommandLineParser()
 		value_to_display = temperature;
 		ClearBuffer(&Command_Line_Buffer);}
 
+	//This is used for a default value to clear the buffer
 	else if (strcmp("\r", Command_Line_Buffer.buffer) == 0){
 		ClearBuffer(&Command_Line_Buffer);}
 
@@ -51,6 +52,7 @@ void CommandLineRead()
 	while(1)
 	{
 		cli_interface++;
+		//This semaphore prevents the task from running until a UART interrupt occurs
 		xSemaphoreTake(read_uart, portMAX_DELAY);
 
 		CommandLineParser();
@@ -72,7 +74,7 @@ void USART2_IRQHandler(void)
 			//Give semaphore to enable main task to run
 			xSemaphoreGiveFromISR(read_uart, &xHigherPriorityTaskWoken);
 
-			//Causes a context switch for the CPU
+			//Causes a context switch for the CPU to the highest task
 			portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 		}
 	}

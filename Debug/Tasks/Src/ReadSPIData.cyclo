@@ -1,3 +1,3 @@
-../Tasks/Src/ReadSPIData.c:7:13:InitADXL	1
-../Tasks/Src/ReadSPIData.c:20:6:ReadADXLData	1
-../Tasks/Src/ReadSPIData.c:64:6:SPI1_IRQHandler	2
+../Tasks/Src/ReadSPIData.c:9:13:InitADXL	1
+../Tasks/Src/ReadSPIData.c:22:6:ReadADXLData	1
+../Tasks/Src/ReadSPIData.c:68:6:SPI1_IRQHandler	2

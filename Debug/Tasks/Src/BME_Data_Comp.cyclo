@@ -1,5 +1,4 @@
 ../Tasks/Src/BME_Data_Comp.c:10:13:Compensation_values_Derivation	1
 ../Tasks/Src/BME_Data_Comp.c:35:13:Read_Compensation_Values	3
-../Tasks/Src/BME_Data_Comp.c:52:13:BME280_compensate_temp	1
-../Tasks/Src/BME_Data_Comp.c:75:13:BME280_compensate_press	2
-../Tasks/Src/BME_Data_Comp.c:100:6:BME_Data_Calculation	1
+../Tasks/Src/BME_Data_Comp.c:53:13:BME280_compensate_temp	1
+../Tasks/Src/BME_Data_Comp.c:105:6:BME_Data_Calculation	1

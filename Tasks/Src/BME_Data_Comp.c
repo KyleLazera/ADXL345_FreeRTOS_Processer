@@ -48,6 +48,7 @@ static void Read_Compensation_Values(BME_Values *values)
 
 /*
  * @Brief	Calculates value of temperature in DegC based on raw sensor values
+ * @Note	These calculations can be found in the BME280 data sheet
  */
 static void BME280_compensate_temp(BME_Values *values, BME280_S32_t adc_T)
 {
@@ -71,7 +72,7 @@ static void BME280_compensate_temp(BME_Values *values, BME280_S32_t adc_T)
 
 /*
  * @Brief	Calculate value of pressure in Pa based on raw sensor values
- */
+ *
 static void BME280_compensate_press(BME_Values *values, BME280_S32_t adc_P)
 {
 	float P;
@@ -95,8 +96,12 @@ static void BME280_compensate_press(BME_Values *values, BME280_S32_t adc_P)
 	var2 = P*((float)(values->Compensation_Vals.dig_P8))/32768.0;
 	P = P + (var1 + var2 + ((float)(values->Compensation_Vals.dig_P7)))/16.0;
 	values->pressure = P;
-}
+}*/
 
+/*
+ * @Brief	This function receives the raw I2C value data, and uses compensation values to determine
+ * 			the actual temperature.
+ */
 void BME_Data_Calculation()
 {
 	uint8_t bme_new_data[9];
@@ -108,6 +113,7 @@ void BME_Data_Calculation()
 	while(1)
 	{
 		comp_count++;
+		//Recieve data from the task that reads I2C data
 		xQueueReceive(send_raw_i2c, &bme_new_data, _10ms);
 
 		temperature = ((int32_t)bme_new_data[4] << 16) | ((int32_t)bme_new_data[5] << 8) | bme_new_data[6];
@@ -115,7 +121,7 @@ void BME_Data_Calculation()
 		BME280_compensate_temp(&Raw_BME_Data, temperature);
 		//BME280_compensate_press(&Raw_BME_Data, pressure);
 
-
+		//Transmit data to the UART gatekeeper task
 		xQueueSend(print_i2c_data, &Raw_BME_Data, 0);
 	}
 

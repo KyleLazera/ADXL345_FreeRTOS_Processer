@@ -147,7 +147,8 @@ void DataProcessing()
 	{
 		filterTask++;
 
-		xQueueReceive(adxl_data_queue, &rec_data, 0);			//Read accelerometer data from FreeRTOS queue
+		//Receive data from the ADXL data reading task
+		xQueueReceive(adxl_data_queue, &rec_data, _10ms);			//Read accelerometer data from FreeRTOS queue
 
 		switch(rec_data.axis)
 		{
@@ -167,7 +168,7 @@ void DataProcessing()
 				break;
 		}
 
-
+		//Send the filtered data via a queue to the UART gate-keeper task
 		xQueueSend(filtered_data_queue, &rec_data, _10ms);
 	}
 }

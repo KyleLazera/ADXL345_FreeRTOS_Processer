@@ -1,2 +1,2 @@
-../Tasks/Src/ReadI2Cdata.c:8:6:ReadData	4
-../Tasks/Src/ReadI2Cdata.c:33:6:I2C1_EV_IRQHandler	2
+../Tasks/Src/ReadI2Cdata.c:10:6:ReadData	4
+../Tasks/Src/ReadI2Cdata.c:36:6:I2C1_EV_IRQHandler	2

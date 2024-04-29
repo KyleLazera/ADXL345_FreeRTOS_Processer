@@ -20,6 +20,18 @@ static uint8_t CreateTask(TaskFunction_t func_pointer, char *name, uint32_t stac
 }
 
 /*
+ * @Brief	This function creates the semaphores to be used by the RTOS
+ */
+void InitSemaphores()
+{
+	//Controls flow of CLI task
+	read_uart = xSemaphoreCreateBinary();
+	//Controls flow of reading SPI data
+	read_spi = xSemaphoreCreateBinary();
+	read_i2c = xSemaphoreCreateMutex();
+}
+
+/*
  * @Brief	This is the initializer function that creates all the tasks. Called from main function.
  * @retval	Function returns a checksum indicating how many tasks were successfully created
  */
