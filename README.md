@@ -17,3 +17,16 @@ of the accelerometer data.
 
 ![Screenshot 2024-05-01 075446](https://github.com/KyleLazera/Real_Time_Processor/assets/122123322/b43bbab5-2a46-4d7a-aade-8558658a1a4a)
 
+#### Frequency Response of Filter:
+
+The depicted frequency response below illustrates the ideal behavior of the filter. However, due to the restriction of the filter order to 16, the actual frequency response exhibits some deviation from the ideal response. As a result, the frequency response may not be as smooth, and the side-lobes may not be as prominent as desired.
+
+The actual frequency response is provided below for reference.
+
+![Screenshot 2024-05-01 081443](https://github.com/KyleLazera/Real_Time_Processor/assets/122123322/85553552-2185-4782-8ac8-87173d09067c)
+
+![Screenshot 2024-05-01 081501](https://github.com/KyleLazera/Real_Time_Processor/assets/122123322/b43db538-abed-4070-80d1-f012f16f741d)
+
+
+
+
