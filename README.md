@@ -9,11 +9,11 @@ the peripheral drivers under real-time processing scenarios.
 
 ## Filter Design
 
-The FIR filter was designed using MATLAB's filterDesigner application part of the DSP toolbox. I implemented a Hanning Window with a cut-off frequency of 5Hz. I felt the Hanning window best suited my needs for this project
-as a sharper transition zone would be more important than greater side-lobe attenuation. Overall, the output of the accelerometer duid not need to be a perfectly smooth curve, in fact, I wanted to keep the accuracy and
-sharpness of the raw data, the filter was just supposed to remove any high frequnecy spikes in the data.
+The FIR filter was designed using MATLAB's filterDesigner application, a part of the DSP Toolbox. I opted for a low-pass filter using a Hanning Window with a cut-off frequency of 5Hz, as it best suited the requirements of this project. For this application, a sharper transition zone was more critical than greater side-lobe attenuation.
 
-To ensure this filter would also serve its purpose I did pass raw data through this filter in MATLAB which produced the following output.
+The objective of the filter was to remove high-frequency spikes in the accelerometer data while preserving the accuracy and sharpness of the raw data. Therefore, the foutput was not intended to be a smooth curve. 
+To validate the effectiveness of the filter, raw data was passed through the filter in MATLAB. The resulting output clearly demonstrated the removal of high-frequency noise spikes while retaining the desired sharpness 
+of the accelerometer data.
 
 ![Screenshot 2024-05-01 075446](https://github.com/KyleLazera/Real_Time_Processor/assets/122123322/b43bbab5-2a46-4d7a-aade-8558658a1a4a)
 
