@@ -1,2 +1,0 @@
-../Tasks/Src/ReadI2Cdata.c:10:6:ReadData	32	static
-../Tasks/Src/ReadI2Cdata.c:37:6:I2C1_EV_IRQHandler	16	static,ignoring_inline_asm

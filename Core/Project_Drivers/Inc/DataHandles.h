@@ -21,11 +21,8 @@ extern I2C_Handle_t BME_Sensor;;
  ***********************************************************
  */
 extern QueueHandle_t adxl_data_queue, filtered_data_queue, print_data, print_i2c_data, send_raw_i2c;
-<<<<<<< HEAD
 extern SemaphoreHandle_t read_uart, read_spi, read_i2c;
-=======
 extern SemaphoreHandle_t read_uart, read_spi, read_i2c, i2c_succesful_read;
->>>>>>> bme_sensor
 extern TimerHandle_t read_bme_sensor;
 
 extern TickType_t _5ms, _10ms, _100ms;

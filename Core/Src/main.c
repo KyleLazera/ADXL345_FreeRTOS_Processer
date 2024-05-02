@@ -23,19 +23,14 @@ int main()
 
 	/*
 	 **************************************************************
-	 * Call FreeRTOS tasks
+	 * Functions to initialize FreeRTOS tasks/queues/semaphores etc.
 	 **************************************************************
 	 */
 	InitSemaphores();
 
-	read_bme_sensor = xTimerCreate("Periodic Read", pdMS_TO_TICKS(200), pdTRUE, 0, ReadData);
-	xTimerStart(read_bme_sensor, 0);
+	InitTimer();
 
-	print_data = xQueueCreate(10, sizeof(AccelerometerData));				//Queue to send data between PWM and print data
-	adxl_data_queue = xQueueCreate(50, sizeof(AccelerometerData));  		//Create queue to hold read data
-	filtered_data_queue = xQueueCreate(20, sizeof(AccelerometerData));		//Create queue to transmit the filtered data
-	print_i2c_data = xQueueCreate(20, sizeof(BME_Values));
-	send_raw_i2c = xQueueCreate(10, sizeof(bme_raw_array));
+	InitQueues();
 
 	ProgramInit();
 

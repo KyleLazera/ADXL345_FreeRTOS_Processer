@@ -10,6 +10,7 @@ const uint8_t slave_address = 0x77;
 void ReadData()
 {
 	bme_raw_array bme_data_rec;
+	//This is an array that holds values to write to the BME to initialize it
 	uint8_t init_bme[] = {0xF2, 0x01, 0xF4, 0x91, 0xF5, 0x80};
 	uint8_t bme_force_measure[] = {0xF4, 0x25, 0xF7};
 
@@ -21,6 +22,7 @@ void ReadData()
 
 	i2c_count++;
 
+	//Begin I2C transmission and reception
 	I2C_MasterTransmitIT(&BME_Sensor, bme_force_measure, slave_address, 3);
 	while(BME_Sensor.I2C_Bus_Direction != I2C_Ready){}
 	I2C_MasterRecieveIT(&BME_Sensor, bme_data_rec, slave_address, 8);

@@ -139,6 +139,7 @@ void BME_Data_Calculation()
 	BME_Values Raw_BME_Data;
 	BME280_S32_t temperature, pressure;
 
+	//Get compensation values which are hard coded into each sensor and used for the calculations
 	Read_Compensation_Values(&Raw_BME_Data);
 
 	while(1)
@@ -148,8 +149,11 @@ void BME_Data_Calculation()
 		//Recieve data from the task that reads I2C data
 		xQueueReceive(send_raw_i2c, &bme_new_data, portMAX_DELAY);
 
+		//Read the sensor data from the array and format it for either temperature or pressure
 		temperature = ((int32_t)bme_new_data[4] << 16) | ((int32_t)bme_new_data[5] << 8) | bme_new_data[6];
 		pressure = ((int32_t)bme_new_data[1] << 16) | ((int32_t)bme_new_data[2] << 8) | bme_new_data[3];
+
+		//Pass the raw data into the compensation formulas
 		BME280_compensate_temp(&Raw_BME_Data, temperature);
 		BME280_compensate_press(&Raw_BME_Data, pressure);
 

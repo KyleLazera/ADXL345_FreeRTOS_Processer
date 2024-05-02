@@ -33,8 +33,28 @@ void InitSemaphores()
 }
 
 /*
+ * @Brief	Function used to initialize and create queues based off handles
+ */
+void InitQueues()
+{
+	print_data = xQueueCreate(10, sizeof(AccelerometerData));				//Queue to send data between PWM and print data
+	adxl_data_queue = xQueueCreate(50, sizeof(AccelerometerData));  		//Create queue to hold read data
+	filtered_data_queue = xQueueCreate(20, sizeof(AccelerometerData));		//Create queue to transmit the filtered data
+	print_i2c_data = xQueueCreate(20, sizeof(BME_Values));					//Create queue to receive and send compensated i2c data
+	send_raw_i2c = xQueueCreate(10, sizeof(bme_raw_array));					//Create queue to receive and send the raw i2c data
+}
+
+/*
+ * @Brief	Function to initialize a timer(s) used in the application
+ */
+void InitTimer()
+{
+	read_bme_sensor = xTimerCreate("Periodic Read", pdMS_TO_TICKS(200), pdTRUE, 0, ReadData);
+	xTimerStart(read_bme_sensor, 0);
+}
+
+/*
  * @Brief	This is the initializer function that creates all the tasks. Called from main function.
- * @retval	Function returns a checksum indicating how many tasks were successfully created
  */
 void ProgramInit()
 {

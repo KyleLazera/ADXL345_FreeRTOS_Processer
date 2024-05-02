@@ -38,7 +38,7 @@ void UART_GateKeeper(void *pvParameters)
 				printf("%.2f\n\r", ((float)compensated_data.temperature/100.0));}
 		}
 
-		//If the user has chosen to specify the temperature, display the temperature
+		//If the user has chosen to specify the pressure, display the pressure
 		else if(axis_to_display == no_axis && value_to_display == pressure)
 		{
 			/*

@@ -178,13 +178,12 @@ void DataProcessing()
 	{
 		filterTask++;
 
-<<<<<<< HEAD
+
 		//Read accelerometer data from FreeRTOS queue
 		xQueueReceive(adxl_data_queue, &rec_data, 0);
-=======
 		//Receive data from the ADXL data reading task
 		xQueueReceive(adxl_data_queue, &rec_data, _10ms);			//Read accelerometer data from FreeRTOS queue
->>>>>>> bme_sensor
+
 
 		switch(rec_data.axis)
 		{

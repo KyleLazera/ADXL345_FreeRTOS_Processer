@@ -8,22 +8,19 @@ C_SRCS += \
 ../Core/Project_Drivers/Src/DataHandles.c \
 ../Core/Project_Drivers/Src/FIFO_Buffer.c \
 ../Core/Project_Drivers/Src/ProgramInit.c \
-../Core/Project_Drivers/Src/TIM3_Driver.c \
-../Core/Project_Drivers/Src/bme280.c 
+../Core/Project_Drivers/Src/TIM3_Driver.c 
 
 OBJS += \
 ./Core/Project_Drivers/Src/DataHandles.o \
 ./Core/Project_Drivers/Src/FIFO_Buffer.o \
 ./Core/Project_Drivers/Src/ProgramInit.o \
-./Core/Project_Drivers/Src/TIM3_Driver.o \
-./Core/Project_Drivers/Src/bme280.o 
+./Core/Project_Drivers/Src/TIM3_Driver.o 
 
 C_DEPS += \
 ./Core/Project_Drivers/Src/DataHandles.d \
 ./Core/Project_Drivers/Src/FIFO_Buffer.d \
 ./Core/Project_Drivers/Src/ProgramInit.d \
-./Core/Project_Drivers/Src/TIM3_Driver.d \
-./Core/Project_Drivers/Src/bme280.d 
+./Core/Project_Drivers/Src/TIM3_Driver.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -33,7 +30,7 @@ Core/Project_Drivers/Src/%.o Core/Project_Drivers/Src/%.su Core/Project_Drivers/
 clean: clean-Core-2f-Project_Drivers-2f-Src
 
 clean-Core-2f-Project_Drivers-2f-Src:
-	-$(RM) ./Core/Project_Drivers/Src/DataHandles.cyclo ./Core/Project_Drivers/Src/DataHandles.d ./Core/Project_Drivers/Src/DataHandles.o ./Core/Project_Drivers/Src/DataHandles.su ./Core/Project_Drivers/Src/FIFO_Buffer.cyclo ./Core/Project_Drivers/Src/FIFO_Buffer.d ./Core/Project_Drivers/Src/FIFO_Buffer.o ./Core/Project_Drivers/Src/FIFO_Buffer.su ./Core/Project_Drivers/Src/ProgramInit.cyclo ./Core/Project_Drivers/Src/ProgramInit.d ./Core/Project_Drivers/Src/ProgramInit.o ./Core/Project_Drivers/Src/ProgramInit.su ./Core/Project_Drivers/Src/TIM3_Driver.cyclo ./Core/Project_Drivers/Src/TIM3_Driver.d ./Core/Project_Drivers/Src/TIM3_Driver.o ./Core/Project_Drivers/Src/TIM3_Driver.su ./Core/Project_Drivers/Src/bme280.cyclo ./Core/Project_Drivers/Src/bme280.d ./Core/Project_Drivers/Src/bme280.o ./Core/Project_Drivers/Src/bme280.su
+	-$(RM) ./Core/Project_Drivers/Src/DataHandles.cyclo ./Core/Project_Drivers/Src/DataHandles.d ./Core/Project_Drivers/Src/DataHandles.o ./Core/Project_Drivers/Src/DataHandles.su ./Core/Project_Drivers/Src/FIFO_Buffer.cyclo ./Core/Project_Drivers/Src/FIFO_Buffer.d ./Core/Project_Drivers/Src/FIFO_Buffer.o ./Core/Project_Drivers/Src/FIFO_Buffer.su ./Core/Project_Drivers/Src/ProgramInit.cyclo ./Core/Project_Drivers/Src/ProgramInit.d ./Core/Project_Drivers/Src/ProgramInit.o ./Core/Project_Drivers/Src/ProgramInit.su ./Core/Project_Drivers/Src/TIM3_Driver.cyclo ./Core/Project_Drivers/Src/TIM3_Driver.d ./Core/Project_Drivers/Src/TIM3_Driver.o ./Core/Project_Drivers/Src/TIM3_Driver.su
 
 .PHONY: clean-Core-2f-Project_Drivers-2f-Src
 
