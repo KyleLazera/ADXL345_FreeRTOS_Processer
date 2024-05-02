@@ -2,6 +2,7 @@
 "./Core/Project_Drivers/Src/FIFO_Buffer.o"
 "./Core/Project_Drivers/Src/ProgramInit.o"
 "./Core/Project_Drivers/Src/TIM3_Driver.o"
+"./Core/Project_Drivers/Src/bme280.o"
 "./Core/Src/freertos.o"
 "./Core/Src/main.o"
 "./Core/Src/syscalls.o"

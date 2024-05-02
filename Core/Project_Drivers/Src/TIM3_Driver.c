@@ -1,5 +1,9 @@
 #include "TIM3_Driver.h"
 
+/*
+ * @Brief	This function initializes the PWM for the TIM3 module
+ * @Note	Because there are 3 LED's I am using 3 seperate channels
+ */
 static void TIM3_PWM_Init(uint8_t channel)
 {
 	TIM3->CR1 |= CR1_ARPE_Enable;

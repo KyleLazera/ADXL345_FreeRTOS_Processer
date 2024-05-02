@@ -10,9 +10,7 @@
  * Pre-Defined Command Line Messages
  ********************************************************
  */
-extern const char x_axis_[];
-extern const char y_axis_[];
-extern const char z_axis_[];
+#define DISPLAY_TEMP		1
 
 /*
  **********************************************************

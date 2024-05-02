@@ -26,17 +26,15 @@ int main()
 	 * Call FreeRTOS tasks
 	 **************************************************************
 	 */
-	read_uart = xSemaphoreCreateBinary();
-	read_spi = xSemaphoreCreateBinary();
-	read_i2c = xSemaphoreCreateMutex();
+	InitSemaphores();
 
-	read_bme_sensor = xTimerCreate("Periodic Read", pdMS_TO_TICKS(50), pdTRUE, 0, ReadData);
+	read_bme_sensor = xTimerCreate("Periodic Read", pdMS_TO_TICKS(200), pdTRUE, 0, ReadData);
 	xTimerStart(read_bme_sensor, 0);
 
 	print_data = xQueueCreate(10, sizeof(AccelerometerData));				//Queue to send data between PWM and print data
 	adxl_data_queue = xQueueCreate(50, sizeof(AccelerometerData));  		//Create queue to hold read data
-	filtered_data_queue = xQueueCreate(10, sizeof(AccelerometerData));		//Create queue to transmit the filtered data
-	print_i2c_data = xQueueCreate(10, sizeof(BME_Values));
+	filtered_data_queue = xQueueCreate(20, sizeof(AccelerometerData));		//Create queue to transmit the filtered data
+	print_i2c_data = xQueueCreate(20, sizeof(BME_Values));
 	send_raw_i2c = xQueueCreate(10, sizeof(bme_raw_array));
 
 	ProgramInit();
@@ -46,6 +44,9 @@ int main()
 
 }
 
+/*
+ * @Brief	Initialize the SPI peripheral using peripheral drivers
+ */
 void SPI1_Init()
 {
 	SPI_Specs_Init();
@@ -53,6 +54,10 @@ void SPI1_Init()
 	Slave_Pin_Init();
 }
 
+
+/*
+ * @Brief	Initialize the UART peripheral using peripheral drivers
+ */
 void UART2_Init()
 {
 	UART_Config(&UART2, USART2, UART_MODE_TXRX, 115200);
@@ -61,6 +66,9 @@ void UART2_Init()
 	NVIC_SetPriority(USART2_IRQn, 5);
 }
 
+/*
+ * @Brief	Initializes the I2C peripheral using the peripheral drivers
+ */
 void I2C1_Init()
 {
 	I2C_Config(&BME_Sensor, I2C1, SM_100KHZ, FM_DUTY_2, Pin8, Pin9);

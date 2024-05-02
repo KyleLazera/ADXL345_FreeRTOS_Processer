@@ -39,6 +39,7 @@
  ****************************************************
  */
 void ProgramInit();
+void InitSemaphores();
 
 
 #endif /* SRC_PROJECT_DRIVERS_INC_PROGRAMINIT_H_ */

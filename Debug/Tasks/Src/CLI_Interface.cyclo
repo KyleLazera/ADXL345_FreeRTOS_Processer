@@ -1,0 +1,3 @@
+../Tasks/Src/CLI_Interface.c:14:13:CommandLineParser	8
+../Tasks/Src/CLI_Interface.c:55:6:CommandLineRead	1
+../Tasks/Src/CLI_Interface.c:70:6:USART2_IRQHandler	4
