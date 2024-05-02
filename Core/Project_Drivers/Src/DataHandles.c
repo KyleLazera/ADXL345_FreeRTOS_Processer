@@ -16,12 +16,13 @@ I2C_Handle_t BME_Sensor;
  ***********************************************************
  */
 
-QueueHandle_t adxl_data_queue, filtered_data_queue, print_data, print_i2c_data, send_raw_i2c, new_filtered_data_queue;
-SemaphoreHandle_t read_uart, read_spi, read_i2c;
+QueueHandle_t adxl_data_queue, filtered_data_queue, print_data, print_i2c_data, send_raw_i2c;
+SemaphoreHandle_t read_uart, read_spi, read_i2c, i2c_succesful_read;
 TimerHandle_t read_bme_sensor;
 
 TickType_t _5ms = pdMS_TO_TICKS(5);
 TickType_t _10ms = pdMS_TO_TICKS(10);
+TickType_t _100ms = pdMS_TO_TICKS(100);
 /*
  ************************************************************
  * Global Variables

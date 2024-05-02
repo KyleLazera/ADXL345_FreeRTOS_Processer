@@ -38,6 +38,11 @@ static void CommandLineParser()
 		value_to_display = temperature;
 		ClearBuffer(&Command_Line_Buffer);}
 
+	else if(strcmp("pressure\r", Command_Line_Buffer.buffer) == 0){
+		axis_to_display = no_axis;
+		value_to_display = pressure;
+		ClearBuffer(&Command_Line_Buffer);}
+
 	//This is used for a default value to clear the buffer
 	else if (strcmp("\r", Command_Line_Buffer.buffer) == 0){
 		ClearBuffer(&Command_Line_Buffer);}

@@ -33,8 +33,8 @@ int main()
 
 	print_data = xQueueCreate(10, sizeof(AccelerometerData));				//Queue to send data between PWM and print data
 	adxl_data_queue = xQueueCreate(50, sizeof(AccelerometerData));  		//Create queue to hold read data
-	filtered_data_queue = xQueueCreate(10, sizeof(AccelerometerData));		//Create queue to transmit the filtered data
-	print_i2c_data = xQueueCreate(10, sizeof(BME_Values));
+	filtered_data_queue = xQueueCreate(20, sizeof(AccelerometerData));		//Create queue to transmit the filtered data
+	print_i2c_data = xQueueCreate(20, sizeof(BME_Values));
 	send_raw_i2c = xQueueCreate(10, sizeof(bme_raw_array));
 
 	ProgramInit();

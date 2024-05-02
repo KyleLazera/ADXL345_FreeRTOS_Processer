@@ -10,6 +10,7 @@
  */
 
 typedef long signed int BME280_S32_t;
+typedef long unsigned int BME280_U32_t;
 
 /*
  *******************************************************

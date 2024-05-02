@@ -20,11 +20,11 @@ extern I2C_Handle_t BME_Sensor;;
  * Declare FreeRTOS Global Variables ie. Semaphores, Qeues etc.
  ***********************************************************
  */
-extern QueueHandle_t adxl_data_queue, filtered_data_queue, print_data, print_i2c_data, send_raw_i2c, new_filtered_data_queue;
-extern SemaphoreHandle_t read_uart, read_spi, read_i2c;
+extern QueueHandle_t adxl_data_queue, filtered_data_queue, print_data, print_i2c_data, send_raw_i2c;
+extern SemaphoreHandle_t read_uart, read_spi, read_i2c, i2c_succesful_read;
 extern TimerHandle_t read_bme_sensor;
 
-extern TickType_t _5ms, _10ms;
+extern TickType_t _5ms, _10ms, _100ms;
 
 /*
  ***********************************************************
@@ -58,7 +58,6 @@ typedef enum
 	no_value,
 	temperature,
 	pressure,
-	humidity
 }BMEDisplayValue;
 
 typedef struct
@@ -81,8 +80,7 @@ typedef struct
 typedef struct
 {
 	int32_t temperature;
-	float pressure;
-	int32_t humidity;
+	int32_t pressure;
 	BME_Comp_Value_t Compensation_Vals;
 }BME_Values;
 

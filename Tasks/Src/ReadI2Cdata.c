@@ -10,7 +10,7 @@ const uint8_t slave_address = 0x77;
 void ReadData()
 {
 	bme_raw_array bme_data_rec;
-	uint8_t init_bme[] = {0xF2, 0x01, 0xF4, 0x25, 0xF5, 0x80};
+	uint8_t init_bme[] = {0xF2, 0x01, 0xF4, 0x91, 0xF5, 0x80};
 	uint8_t bme_force_measure[] = {0xF4, 0x25, 0xF7};
 
 	//Only transmit the initialization function the first time the thread runs - to initialize the sensor
@@ -27,6 +27,7 @@ void ReadData()
 	while(BME_Sensor.I2C_Bus_Direction != I2C_Ready){}
 
 	xQueueSend(send_raw_i2c, &bme_data_rec, 0);
+
 
 }
 

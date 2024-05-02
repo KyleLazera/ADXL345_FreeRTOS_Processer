@@ -67,36 +67,67 @@ static void BME280_compensate_temp(BME_Values *values, BME280_S32_t adc_T)
     t_fine = (BME280_S32_t)(var1 + var2);
     T = (var1 + var2)/5120.0;
 
-    values->temperature = (T/100);
+    values->temperature = T;
 }
 
 /*
  * @Brief	Calculate value of pressure in Pa based on raw sensor values
- *
+ * @Note	This formula was collected from the BME280 data-sheet in Appendix A
+ * @Note	The data sheet recommends usage of 64-bit calculations for pressure, however, this negatively influences
+ * 			the processing time on the stm32f4xx as it is a 32bit processor
+ */
 static void BME280_compensate_press(BME_Values *values, BME280_S32_t adc_P)
 {
-	float P;
-	float var1, var2;
 
-	var1 = ((float)t_fine/2.0) - 64000.0;
-	var2 = var1 * var1 * ((float)(values->Compensation_Vals.dig_P6))/32768.0;
-	var2 = var2 + var1 * ((float)(values->Compensation_Vals.dig_P5)) * 2.0;
-	var2 = (var2/4.0)+((float)(values->Compensation_Vals.dig_P4) * 65536.0);
-	var1 = (((float)(values->Compensation_Vals.dig_P3)) * var1 * var1/524288.0 + ((float)(values->Compensation_Vals.dig_P2)) * var1) / 52488.0;
-	var1 = (1.0 + var1/32768.0)*((float)(values->Compensation_Vals.dig_P1));
+	BME280_S32_t var1, var2, var3, var4, var5;
+	BME280_S32_t pressure;
+	BME280_S32_t pressure_min = 30000;
+	BME280_S32_t pressure_max = 110000;
 
-	if(var1 == 0)
-	{
-		return 0;
-	}
+    var1 = (((BME280_S32_t)t_fine) / 2) - (BME280_S32_t)64000;
+    var2 = (((var1 / 4) * (var1 / 4)) / 2048) * ((BME280_S32_t)values->Compensation_Vals.dig_P6);
+    var2 = var2 + ((var1 * ((BME280_S32_t)values->Compensation_Vals.dig_P5)) * 2);
+    var2 = (var2 / 4) + (((BME280_S32_t)values->Compensation_Vals.dig_P4) * 65536);
+    var3 = (values->Compensation_Vals.dig_P3 * (((var1 / 4) * (var1 / 4)) / 8192)) / 8;
+    var4 = (((BME280_S32_t)values->Compensation_Vals.dig_P2) * var1) / 2;
+    var1 = (var3 + var4) / 262144;
+    var1 = (((32768 + var1)) * ((BME280_S32_t)values->Compensation_Vals.dig_P1)) / 32768;
 
-	P = 1048576.0 - (float)adc_P;
-	P = (P - (var2 / 4096.0)) * 6250.0/var1;
-	var1 = ((float)(values->Compensation_Vals.dig_P9)) * P * P/2147483648.0;
-	var2 = P*((float)(values->Compensation_Vals.dig_P8))/32768.0;
-	P = P + (var1 + var2 + ((float)(values->Compensation_Vals.dig_P7)))/16.0;
-	values->pressure = P;
-}*/
+    /* Avoid exception caused by division by zero */
+    if (var1)
+    {
+        var5 = (BME280_U32_t)((BME280_U32_t)1048576) - adc_P;
+        pressure = ((BME280_U32_t)(var5 - (BME280_U32_t)(var2 / 4096))) * 3125;
+
+        if (pressure < 0x80000000)
+        {
+            pressure = (pressure << 1) / ((BME280_U32_t)var1);
+        }
+        else
+        {
+            pressure = (pressure / (BME280_U32_t)var1) * 2;
+        }
+
+        var1 = (((BME280_S32_t)values->Compensation_Vals.dig_P9) * ((BME280_S32_t)(((pressure / 8) * (pressure / 8)) / 8192))) / 4096;
+        var2 = (((BME280_S32_t)(pressure / 4)) * ((BME280_S32_t)values->Compensation_Vals.dig_P8)) / 8192;
+        pressure = (BME280_U32_t)((BME280_S32_t)pressure + ((var1 + var2 + values->Compensation_Vals.dig_P7) / 16));
+
+        if (pressure < pressure_min)
+        {
+            pressure = pressure_min;
+        }
+        else if (pressure > pressure_max)
+        {
+            pressure = pressure_max;
+        }
+    }
+    else
+    {
+        pressure = pressure_min;
+    }
+
+    values->pressure = pressure;
+}
 
 /*
  * @Brief	This function receives the raw I2C value data, and uses compensation values to determine
@@ -112,14 +143,15 @@ void BME_Data_Calculation()
 
 	while(1)
 	{
+
 		comp_count++;
 		//Recieve data from the task that reads I2C data
-		xQueueReceive(send_raw_i2c, &bme_new_data, _10ms);
+		xQueueReceive(send_raw_i2c, &bme_new_data, portMAX_DELAY);
 
 		temperature = ((int32_t)bme_new_data[4] << 16) | ((int32_t)bme_new_data[5] << 8) | bme_new_data[6];
-		//pressure = ((int32_t)bme_new_data[1] << 16) | ((int32_t)bme_new_data[2] << 8) | bme_new_data[3];
+		pressure = ((int32_t)bme_new_data[1] << 16) | ((int32_t)bme_new_data[2] << 8) | bme_new_data[3];
 		BME280_compensate_temp(&Raw_BME_Data, temperature);
-		//BME280_compensate_press(&Raw_BME_Data, pressure);
+		BME280_compensate_press(&Raw_BME_Data, pressure);
 
 		//Transmit data to the UART gatekeeper task
 		xQueueSend(print_i2c_data, &Raw_BME_Data, 0);

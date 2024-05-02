@@ -35,7 +35,24 @@ void UART_GateKeeper(void *pvParameters)
 			 * at once.
 			 */
 			if((gatekeeper % 500) == 0){
-				printf("%d\n\r", compensated_data.temperature);}
+				printf("%.2f\n\r", ((float)compensated_data.temperature/100.0));}
+		}
+
+		//If the user has chosen to specify the temperature, display the temperature
+		else if(axis_to_display == no_axis && value_to_display == pressure)
+		{
+			/*
+			 * The data from the I2C value will only read values from the queue if the user specifies it needs to read
+			 * the pressure.
+			 */
+			xQueueReceive(print_i2c_data, &compensated_data, 0);
+
+			/*
+			 * Keep a counter to print the values after every 200 ticks in the task. This prevents a large amount of the same valued data being output
+			 * at once.
+			 */
+			if((gatekeeper % 200) == 0){
+				printf("%.2f\n\r", ((float)compensated_data.pressure/100.0));}
 		}
 
 		//Send data to the pulse width modulation thread

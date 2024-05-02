@@ -28,7 +28,8 @@ void InitSemaphores()
 	read_uart = xSemaphoreCreateBinary();
 	//Controls flow of reading SPI data
 	read_spi = xSemaphoreCreateBinary();
-	read_i2c = xSemaphoreCreateMutex();
+	read_i2c = xSemaphoreCreateBinary();
+	i2c_succesful_read = xSemaphoreCreateBinary();
 }
 
 /*
@@ -43,6 +44,6 @@ void ProgramInit()
 	CreateTask(DataProcessing, "Filter Raw Data", STACK_SIZE_1000, PRIORITY_2);
 	CreateTask(UART_GateKeeper, "Print Filtered Data", STACK_SIZE_500, PRIORITY_1);
 	CreateTask(DisplayData_PWM, "PWM of Data", STACK_SIZE_200, PRIORITY_1);
-	CreateTask(BME_Data_Calculation, "Compute BME data", STACK_SIZE_200, PRIORITY_1);
+	CreateTask(BME_Data_Calculation, "Compute BME data", STACK_SIZE_200, PRIORITY_2);
 
 }
