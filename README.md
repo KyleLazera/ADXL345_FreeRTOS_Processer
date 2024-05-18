@@ -34,4 +34,12 @@ To display the outcomes I am using the Serial Oscilliscope application which can
 
 https://youtube.com/shorts/gONS1rhD3NI
 
+#### LED Display:
 
+To add a visual component to the project I included a series of 3 LED's that would display how each axis on the accelerometer is changing in real-time. Each LED represents
+a single axis and uses pulse width modulation to brighten and dim as each axis gets further away from 0. A link to a video displaying this function is below. In the video, the 
+LED's fo from left to right as follows: y-axis, x-axis and z-axis.
+
+https://youtube.com/shorts/mXdzUgcmPYM
+
+Note: The y-axis LED does not start at 0 as  the accelerometer does not sit flat in the breadboard, therefore it is slightly dimmed at the start. 
