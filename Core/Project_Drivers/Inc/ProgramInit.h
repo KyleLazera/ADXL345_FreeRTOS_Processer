@@ -21,6 +21,8 @@
  ****************************************************
  */
 
+#define NUM_OF_TASKS					6
+
 /**** Stack Size ****/
 #define STACK_SIZE_100					100
 #define STACK_SIZE_200					200

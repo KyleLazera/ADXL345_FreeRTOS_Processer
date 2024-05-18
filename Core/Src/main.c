@@ -72,6 +72,9 @@ void I2C1_Init()
 
 /*
  * @Brief Function to set the SPI specs
+ *
+ * @Note	The SPI uses GPIO Port A, with pin5 being the clk, pin6 being miso
+ * 			and pin 7 being mosi
  */
 void SPI_Specs_Init()
 {

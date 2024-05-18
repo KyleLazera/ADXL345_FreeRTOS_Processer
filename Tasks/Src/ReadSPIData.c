@@ -1,6 +1,5 @@
 #include "ReadSPIData.h"
 
-//uint8_t adxl_data_rec[7];			//Buffer to store the adxl data
 
 /*
  * @Brief	Used to initialize ADXL registers: Set range to +-4g, allow continuous

@@ -1,0 +1,6 @@
+../Core/Project_Drivers/Src/ProgramInit.c:8:16:CreateTask	2
+../Core/Project_Drivers/Src/ProgramInit.c:25:6:InitSemaphores	1
+../Core/Project_Drivers/Src/ProgramInit.c:38:6:InitQueues	1
+../Core/Project_Drivers/Src/ProgramInit.c:50:6:InitTimer	1
+../Core/Project_Drivers/Src/ProgramInit.c:60:6:SendInitMessage	1
+../Core/Project_Drivers/Src/ProgramInit.c:69:6:ProgramInit	2

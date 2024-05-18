@@ -1,0 +1,17 @@
+../Drivers/CMSIS/Include/core_cm4.h:1684:22:__NVIC_EnableIRQ	16	static,ignoring_inline_asm
+../Drivers/CMSIS/Include/core_cm4.h:1814:22:__NVIC_SetPriority	16	static
+../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_spi.c:8:20:Check_Flag	16	static
+../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_spi.c:25:13:Disable_SPI	16	static
+../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_spi.c:37:6:SPI_Init	40	static
+../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_spi.c:115:6:SPI_Transmit	32	static
+../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_spi.c:171:6:SPI_Receive	32	static
+../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_spi.c:223:13:Enable_NVIC	16	static
+../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_spi.c:245:13:Disable_SPI_Transmission	24	static
+../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_spi.c:272:13:Disable_SPI_Reception	16	static
+../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_spi.c:294:13:TXE_Interrupt_Handler	16	static
+../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_spi.c:364:13:RXNE_Interrupt_Handler	16	static
+../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_spi.c:419:6:SPI_TransmitIT	24	static
+../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_spi.c:446:6:SPI_ReceiveIT	24	static
+../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_spi.c:480:6:SPI_MultiSlave_TransmitIT	24	static
+../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_spi.c:508:6:SPI_MultiSlave_RecieveIT	24	static
+../Drivers/stm32f4xx_periphDrivers/Src/stm32f401_spi.c:536:6:SPI_IRQ_Handler	24	static

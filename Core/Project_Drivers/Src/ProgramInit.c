@@ -54,16 +54,33 @@ void InitTimer()
 }
 
 /*
+ * @Brief	Used to send an initializer messaged to the serial COM port (if it is being used) - gives the user
+ * 			a series of options to select as well as indicates the program initialized correctly
+ */
+void SendInitMessage()
+{
+	//Initialization message for the user
+	printf("Please select from the series of options: xaxis, yaxis, zaxis, temp, pressure or stop\n\r");
+}
+
+/*
  * @Brief	This is the initializer function that creates all the tasks. Called from main function.
  */
 void ProgramInit()
 {
 
-	CreateTask(CommandLineRead, "Read UART", STACK_SIZE_200, PRIORITY_4);
-	CreateTask(ReadADXLData, "Read ADXL345 Data", STACK_SIZE_500, PRIORITY_3);
-	CreateTask(DataProcessing, "Filter Raw Data", STACK_SIZE_1000, PRIORITY_2);
-	CreateTask(UART_GateKeeper, "Print Filtered Data", STACK_SIZE_500, PRIORITY_1);
-	CreateTask(DisplayData_PWM, "PWM of Data", STACK_SIZE_200, PRIORITY_1);
-	CreateTask(BME_Data_Calculation, "Compute BME data", STACK_SIZE_200, PRIORITY_2);
+	int task_counter = 0;
+
+	task_counter += CreateTask(CommandLineRead, "Read UART", STACK_SIZE_200, PRIORITY_4);
+	task_counter += CreateTask(ReadADXLData, "Read ADXL345 Data", STACK_SIZE_500, PRIORITY_3);
+	task_counter += CreateTask(DataProcessing, "Filter Raw Data", STACK_SIZE_1000, PRIORITY_2);
+	task_counter += CreateTask(UART_GateKeeper, "Print Filtered Data", STACK_SIZE_500, PRIORITY_1);
+	task_counter += CreateTask(DisplayData_PWM, "PWM of Data", STACK_SIZE_200, PRIORITY_1);
+	task_counter += CreateTask(BME_Data_Calculation, "Compute BME data", STACK_SIZE_200, PRIORITY_2);
+
+	if(task_counter == NUM_OF_TASKS)
+	{
+		SendInitMessage();
+	}
 
 }
